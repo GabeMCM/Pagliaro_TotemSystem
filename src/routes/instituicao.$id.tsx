@@ -40,7 +40,7 @@ function InstituicaoDetalhesPage() {
               {ong.midias.map((midia, index) => (
                 <div 
                   key={index} 
-                  className="snap-center shrink-0 w-[85%] md:w-[70%] lg:w-[800px] h-[300px] md:h-[450px] bg-card rounded-[2rem] border border-white/20 overflow-hidden shadow-soft relative group cursor-pointer"
+                  className="snap-center shrink-0 w-[85%] md:w-[70%] lg:w-[50rem] h-[20rem] md:h-[28rem] bg-card rounded-[2rem] border border-white/20 overflow-hidden shadow-soft relative group cursor-pointer"
                 >
                   {/* Placeholder/Fundo caso a imagem falhe */}
                   <div className="absolute inset-0 bg-primary/10 flex items-center justify-center group-hover:bg-primary/15 transition-colors duration-500">
@@ -85,7 +85,7 @@ function InstituicaoDetalhesPage() {
 
         {/* Sobre a Instituição e Contatos */}
         <div className="bg-card/40 rounded-[2.5rem] p-6 md:p-10 lg:p-14 backdrop-blur-sm border border-white/40 shadow-soft max-w-5xl mx-auto w-full">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+          <div className="flex flex-col landscape:lg:flex-row gap-8 landscape:lg:gap-12">
             <div className="flex-1">
               <h2 className="font-serif text-2xl md:text-3xl text-ui-text mb-6">{STRINGS.instituicoes.nossaHistoria}</h2>
               <div className="prose prose-lg">
@@ -97,7 +97,7 @@ function InstituicaoDetalhesPage() {
 
             {/* Informações de Contato e QR Code */}
             {(ong.telefone || ong.email || ong.cnpj || ong.website) && (
-              <div className="w-full lg:w-[340px] shrink-0 bg-background/50 rounded-[2rem] p-8 border border-white/40 shadow-sm flex flex-col gap-6 h-fit">
+              <div className="w-full lg:w-[22rem] shrink-0 bg-background/50 rounded-[2rem] p-8 border border-white/40 shadow-sm flex flex-col gap-6 h-fit">
                 <h3 className="font-serif text-xl text-ui-text border-b border-border/50 pb-4">Informações</h3>
                 
                 <div className="flex flex-col gap-4 text-sm text-taupe">

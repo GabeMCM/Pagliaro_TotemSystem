@@ -20,7 +20,7 @@ export const EnvironmentLayer = () => {
         <img 
           src="/media/imagens/logo_crop.png" 
           alt="" 
-          className="w-full max-w-[500px] md:max-w-[1200px] h-auto object-contain" 
+          className="w-full max-w-[32rem] md:max-w-[75rem] h-auto object-contain" 
         />
       </div>
 

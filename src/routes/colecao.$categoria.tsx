@@ -56,7 +56,7 @@ function ColecaoPage() {
           <p className="text-taupe">{STRINGS.colecao.subtitulo}</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-10">
+        <div className="grid grid-cols-1 portrait:md:grid-cols-2 landscape:md:grid-cols-2 landscape:lg:grid-cols-3 landscape:xl:grid-cols-4 gap-6 md:gap-10 max-w-7xl mx-auto w-full">
           {homenagem.modelos?.map((m, i) => (
             <InteractiveCard
               key={m.id}
