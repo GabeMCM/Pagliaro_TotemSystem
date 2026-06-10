@@ -1,0 +1,17 @@
+{
+  "name": "Culto da Saudade",
+  "short_name": "Culto da Saudade",
+  "description": "Totem interativo do Culto da Saudade",
+  "start_url": "/",
+  "display": "fullscreen",
+  "background_color": "#fdfcfb",
+  "theme_color": "#fdfcfb",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/media/imagens/logo_crop.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}
