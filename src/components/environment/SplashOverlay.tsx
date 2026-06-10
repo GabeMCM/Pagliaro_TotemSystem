@@ -20,7 +20,7 @@ export const SplashOverlay = () => {
           {STRINGS.splash.messages.map((msg, idx) => (
             <h2 
               key={idx}
-              className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-4 text-center font-serif text-5xl transition-all duration-[3000ms] ease-in-out ${
+              className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-4 text-center font-serif text-3xl md:text-5xl transition-all duration-[3000ms] ease-in-out ${
                 idx === msgIndex 
                   ? 'opacity-100 scale-100 blur-0' 
                   : 'opacity-0 scale-95 blur-sm'
@@ -37,14 +37,14 @@ export const SplashOverlay = () => {
         </div>
       </div>
       
-      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center z-50">
+      <div className="absolute bottom-16 left-0 w-full flex flex-col items-center justify-center z-50 px-4">
         <div className="relative flex items-center justify-center mb-6">
           <div className="absolute w-12 h-12 rounded-full border border-white/60 animate-ripple" style={{ animationDelay: '0s' }}></div>
           <div className="absolute w-12 h-12 rounded-full border border-white/60 animate-ripple" style={{ animationDelay: '1.5s' }}></div>
           <div className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)]"></div>
         </div>
         <p 
-          className="uppercase tracking-[0.4em] text-xs font-medium animate-float-slow"
+          className="uppercase tracking-[0.4em] text-xs font-medium animate-float-slow text-center ml-[0.4em]"
           style={{ 
             color: ENV_STATIC.splash.textColor,
             opacity: 0.9, 

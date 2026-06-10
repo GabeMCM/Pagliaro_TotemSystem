@@ -49,8 +49,8 @@ function PagamentoPage() {
         <StepBar currentStep={2} />
 
         <div className="text-center mb-12 animate-gentle-fade">
-          <h1 className="font-serif text-4xl text-ui-text mb-3">{STRINGS.pagamento.titulo}</h1>
-          <p className="text-taupe text-lg">{STRINGS.pagamento.subtitulo}</p>
+          <h1 className="font-serif text-3xl md:text-4xl text-ui-text mb-3">{STRINGS.pagamento.titulo}</h1>
+          <p className="text-taupe text-base md:text-lg">{STRINGS.pagamento.subtitulo}</p>
         </div>
 
         <div className="flex flex-col md:flex-row gap-12 items-center justify-center pb-32">
@@ -60,11 +60,11 @@ function PagamentoPage() {
               <QRCodePlaceholder />
             </div>
             <p className="text-taupe uppercase tracking-widest text-xs mb-2">{STRINGS.pagamento.metodo}</p>
-            <p className="font-serif text-4xl text-primary">{formatCurrency(homenagem.valor)}</p>
+            <p className="font-serif text-3xl md:text-4xl text-primary">{formatCurrency(homenagem.valor)}</p>
           </div>
 
-          <div className="w-full md:w-96 bg-muted/60 p-8 rounded-3xl animate-rise" style={{ animationDelay: '200ms' }}>
-            <h3 className="font-serif text-2xl text-ui-text mb-6">{STRINGS.pagamento.resumo}</h3>
+          <div className="w-full md:w-96 bg-muted/60 p-6 md:p-8 rounded-3xl animate-rise" style={{ animationDelay: '200ms' }}>
+            <h3 className="font-serif text-xl md:text-2xl text-ui-text mb-6">{STRINGS.pagamento.resumo}</h3>
             
             <div className="space-y-4">
               <div>

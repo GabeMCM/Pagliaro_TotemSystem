@@ -49,7 +49,7 @@ function ConfirmacaoPage() {
         </div>
 
         <div className="text-center mb-12 animate-gentle-fade">
-          <h1 className="font-serif text-5xl text-ui-text mb-6">
+          <h1 className="font-serif text-3xl md:text-5xl text-ui-text mb-6">
             {STRINGS.confirmacao.titulo}
           </h1>
           <p className="text-taupe text-xl">
@@ -60,8 +60,8 @@ function ConfirmacaoPage() {
           </p>
         </div>
 
-        <div className="w-full bg-card/80 p-8 rounded-3xl border border-border/70 shadow-soft backdrop-blur mb-12 animate-rise" style={{ animationDelay: '200ms' }}>
-          <h3 className="font-serif text-2xl text-ui-text mb-6 text-center">{STRINGS.confirmacao.resumo}</h3>
+        <div className="w-full bg-card/80 p-6 md:p-8 rounded-3xl border border-border/70 shadow-soft backdrop-blur mb-12 animate-rise" style={{ animationDelay: '200ms' }}>
+          <h3 className="font-serif text-xl md:text-2xl text-ui-text mb-6 text-center">{STRINGS.confirmacao.resumo}</h3>
           
           <div className="space-y-4 text-center">
             <div>
@@ -93,7 +93,7 @@ function ConfirmacaoPage() {
 
         <button
           onClick={handleConcluir}
-          className="bg-transparent border border-primary text-primary px-12 py-4 rounded-full hover:bg-primary/5 active:scale-[0.99] transition-all duration-500 uppercase tracking-widest text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+          className="bg-transparent border border-primary text-primary px-8 md:px-12 py-4 rounded-full hover:bg-primary/5 active:scale-[0.99] transition-all duration-500 uppercase tracking-widest text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
         >
           {STRINGS.confirmacao.concluir}
         </button>

@@ -10,6 +10,7 @@ import { StickyActionBar } from '../components/StickyActionBar'
 import { PrimaryButton } from '../components/PrimaryButton'
 import { calcFotosRestantes } from '../lib/utils'
 import { FlowGuard } from '../components/FlowGuard'
+import { FadeImage } from '../components/FadeImage'
 
 export const Route = createFileRoute('/painel')({
   component: () => (
@@ -63,8 +64,8 @@ function PainelPage() {
         <StepBar currentStep={1} />
 
         <div className="text-center mb-10 animate-gentle-fade">
-          <h1 className="font-serif text-4xl text-ui-text mb-3">{STRINGS.painel.titulo}</h1>
-          <p className="text-taupe">
+          <h1 className="font-serif text-3xl md:text-4xl text-ui-text mb-3">{STRINGS.painel.titulo}</h1>
+          <p className="text-taupe text-sm md:text-base">
             {restantes > 0 
               ? STRINGS.painel.contagem(fotosExistentes, restantes)
               : STRINGS.painel.completo
@@ -76,7 +77,7 @@ function PainelPage() {
           {fotos.map((foto, idx) => (
             <div 
               key={foto.id} 
-              className="w-52 bg-card p-3 pb-4 shadow-card rounded-sm animate-rise relative group"
+              className="w-40 md:w-52 bg-card p-2 pb-3 md:p-3 md:pb-4 shadow-card rounded-sm animate-rise relative group"
               style={{ transform: `rotate(${ROTATIONS[idx % ROTATIONS.length]})` }}
             >
               <button 
@@ -88,7 +89,7 @@ function PainelPage() {
               </button>
               
               <div className="aspect-square bg-muted/30 mb-3 overflow-hidden">
-                <img src={foto.src} alt="Lembrança" className="w-full h-full object-cover" loading="lazy" />
+                <FadeImage src={foto.src} alt="Lembrança" className="w-full h-full object-cover" loading="lazy" />
               </div>
               
               <input 
@@ -105,7 +106,7 @@ function PainelPage() {
           {restantes > 0 && (
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="w-52 aspect-[3/4] border-2 border-dashed border-border/70 rounded-sm flex flex-col items-center justify-center text-taupe hover:text-primary hover:border-primary/50 transition-colors duration-500 animate-rise"
+              className="w-40 md:w-52 aspect-[3/4] border-2 border-dashed border-border/70 rounded-sm flex flex-col items-center justify-center text-taupe hover:text-primary hover:border-primary/50 transition-colors duration-500 animate-rise"
             >
               <Plus className="w-8 h-8 mb-4 opacity-50" />
               <span className="font-serif italic">{STRINGS.painel.adicionarFotos}</span>

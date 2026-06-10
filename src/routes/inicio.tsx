@@ -16,7 +16,7 @@ function InicioPage() {
           <span className="uppercase tracking-[0.3em] text-primary/70 text-sm font-semibold block mb-4">
             {STRINGS.inicio.bemVindo}
           </span>
-          <h1 className="font-serif text-5xl text-ui-text mb-6">
+          <h1 className="font-serif text-4xl md:text-5xl text-ui-text mb-6">
             {STRINGS.inicio.titulo}
           </h1>
         </div>
@@ -25,52 +25,52 @@ function InicioPage() {
           <InteractiveCard 
             to="/catalogo"
             animationDelay="100ms"
-            className="flex items-center gap-6 p-6"
+            className="flex items-center gap-4 md:gap-6 p-4 md:p-6"
           >
-            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors duration-500">
-              <Flower2 className="w-8 h-8" />
+            <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors duration-500">
+              <Flower2 className="w-6 h-6 md:w-8 md:h-8" />
             </div>
             <div className="text-left flex-none">
-              <h2 className="text-2xl font-serif text-ui-text">{STRINGS.inicio.opcoes.homenagens}</h2>
+              <h2 className="text-xl md:text-2xl font-serif text-ui-text">{STRINGS.inicio.opcoes.homenagens}</h2>
             </div>
           </InteractiveCard>
 
           <InteractiveCard 
             to="/historia"
             animationDelay="200ms"
-            className="flex items-center gap-6 p-6"
+            className="flex items-center gap-4 md:gap-6 p-4 md:p-6"
           >
-            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors duration-500">
-              <BookOpen className="w-8 h-8" />
+            <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors duration-500">
+              <BookOpen className="w-6 h-6 md:w-8 md:h-8" />
             </div>
             <div className="text-left flex-none">
-              <h2 className="text-2xl font-serif text-ui-text">{STRINGS.inicio.opcoes.historia}</h2>
+              <h2 className="text-xl md:text-2xl font-serif text-ui-text">{STRINGS.inicio.opcoes.historia}</h2>
             </div>
           </InteractiveCard>
 
           <InteractiveCard 
             onClick={() => {}}
             animationDelay="300ms"
-            className="flex items-center gap-6 p-6"
+            className="flex items-center gap-4 md:gap-6 p-4 md:p-6"
           >
-            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors duration-500">
-              <HelpCircle className="w-8 h-8" />
+            <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors duration-500">
+              <HelpCircle className="w-6 h-6 md:w-8 md:h-8" />
             </div>
             <div className="text-left flex-none">
-              <h2 className="text-2xl font-serif text-ui-text">{STRINGS.inicio.opcoes.comoFunciona}</h2>
+              <h2 className="text-xl md:text-2xl font-serif text-ui-text">{STRINGS.inicio.opcoes.comoFunciona}</h2>
             </div>
           </InteractiveCard>
 
           <InteractiveCard 
             to="/instituicoes"
             animationDelay="400ms"
-            className="flex items-center gap-6 p-6"
+            className="flex items-center gap-4 md:gap-6 p-4 md:p-6"
           >
-            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors duration-500">
-              <HeartHandshake className="w-8 h-8" />
+            <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors duration-500">
+              <HeartHandshake className="w-6 h-6 md:w-8 md:h-8" />
             </div>
             <div className="text-left flex-none">
-              <h2 className="text-2xl font-serif text-ui-text">{STRINGS.inicio.opcoes.instituicoes}</h2>
+              <h2 className="text-xl md:text-2xl font-serif text-ui-text">{STRINGS.inicio.opcoes.instituicoes}</h2>
             </div>
           </InteractiveCard>
         </div>

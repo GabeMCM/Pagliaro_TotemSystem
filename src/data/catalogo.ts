@@ -24,6 +24,12 @@ export interface Ong {
   causa: string;
   descricao: string;
   sobre?: string;
+  website?: string;
+  email?: string;
+  telefone?: string[];
+  cnpj?: string;
+  cep?: string;
+  endereco?: string;
   midias?: {
     tipo: 'foto' | 'video';
     url: string;
