@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-sage: var(--sage);
+  --color-rose: var(--rose);
+  --color-taupe: var(--taupe);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-ui-text: var(--ui-text, #4a4340);
+  --color-ui-text-muted: var(--ui-text-muted, #5c5450);
+
+  --radius-full: 9999px;
+  --radius-3xl: 1.5rem;
+
+  --shadow-soft: 0 4px 20px -2px rgba(180, 170, 160, 0.15);
+  --shadow-card: 0 10px 40px -5px rgba(180, 170, 160, 0.25);
+}
+
+:root {
+  /* Neutros Quentes */
+  --background: #fdfcfb;
+  --primary: #c29591; /* Dusty rose */
+  --primary-foreground: #ffffff;
+  --secondary: #e6dfd8; /* Areia quente */
+  --accent: #e8d0ce; /* Rosé claro */
+  --sage: #c3c9bf;
+  --rose: #d6b8b5;
+  --taupe: #b5a8a1;
+  
+  --card: var(--ui-card, rgba(253, 252, 251, 0.8));
+  --border: var(--ui-border, rgba(181, 168, 161, 0.3));
+  --muted: rgba(230, 223, 216, 0.5);
+
+  --radius: 1rem;
+}
+
+body {
+  font-family: "Mulish", sans-serif;
+  background-color: var(--background);
+  color: var(--ui-text, #4a4340);
+}
+
+h1, h2, h3, h4, h5, h6, .font-serif {
+  font-family: "Cormorant Garamond", serif;
+}
+
+@keyframes rise {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gentle-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes wind-dash {
+  0% {
+    stroke-dasharray: 0 2000;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 600 2000;
+    stroke-dashoffset: -500;
+  }
+  100% {
+    stroke-dasharray: 0 2000;
+    stroke-dashoffset: -2000;
+  }
+}
+
+.animate-rise {
+  animation: rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.animate-gentle-fade {
+  animation: gentle-fade 1s ease-in-out forwards;
+}
+
+@keyframes ripple {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+.animate-ripple {
+  animation: ripple 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Utilitário para ocultar scrollbar no Modal de Vidro sem perder funcionalidade */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+@keyframes falling-leaf {
+  0% { 
+    transform: translate3d(var(--start-x, 0px), var(--start-y, 0px), 0) rotate(0deg) scale(var(--leaf-scale, 1)); 
+    opacity: 0; 
+  }
+  10% { 
+    opacity: var(--leaf-opacity, 1); 
+  }
+  80% { 
+    opacity: var(--leaf-opacity, 1); 
+  }
+  100% { 
+    transform: translate3d(calc(var(--start-x, 0px) + var(--wind-drift, 200px)), 110vh, 0) rotate(var(--spin, 360deg)) scale(var(--leaf-scale, 1)); 
+    opacity: 0; 
+  }
+}
+
+.anim-falling-leaf {
+  animation: falling-leaf var(--fall-duration, 12s) linear forwards;
+}
+
+.animate-float-slow {
+  animation: float-slow 9s ease-in-out infinite;
+}
+
+.animate-wind-dash {
+  animation: wind-dash 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
