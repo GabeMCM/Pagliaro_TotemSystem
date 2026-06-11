@@ -14,8 +14,7 @@ export const instituicoes: Ong[] = [
     "cep": "38072-200",
     "endereco": "Rua Menino José de Almeida, 266 - Bairro Boa Vista, Uberaba/MG",
     "midias": [
-      { "tipo": "foto", "url": "/img/instituto-amparo-1.jpg", "legenda": "Fachada do Lar" },
-      { "tipo": "foto", "url": "/img/instituto-amparo-2.jpg", "legenda": "Convivência e Atividades" }
+      { "tipo": "video", "url": "/media/instituicoes/lar_da_esperanca.mp4", "legenda": "Conheça o Lar da Esperança" }
     ]
   }
 ];

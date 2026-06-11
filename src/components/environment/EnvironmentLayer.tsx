@@ -18,7 +18,7 @@ export const EnvironmentLayer = () => {
       {/* Marca d'água Logo Grande no "Céu" Global */}
       <div className="absolute top-10 md:top-0 left-1/2 -translate-x-1/2 opacity-50 md:opacity-40 pointer-events-none mix-blend-multiply w-full max-w-full flex justify-center px-6">
         <img 
-          src="/media/imagens/logo_crop.png" 
+          src="/media/brand/logo_crop.png" 
           alt="" 
           className="w-full max-w-[32rem] md:max-w-[75rem] h-auto object-contain" 
         />

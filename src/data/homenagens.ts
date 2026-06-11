@@ -13,57 +13,57 @@ export const homenagens: Homenagem[] = [
       {
         "id": "1",
         "nome": "",
-        "imagem": "/media/imagens/1.png"
+        "imagem": "/media/coroas/1.png"
       },
       {
         "id": "2",
         "nome": "",
-        "imagem": "/media/imagens/2.png"
+        "imagem": "/media/coroas/2.png"
       },
       {
         "id": "3",
         "nome": "",
-        "imagem": "/media/imagens/3.png"
+        "imagem": "/media/coroas/3.png"
       },
       {
         "id": "4",
         "nome": "",
-        "imagem": "/media/imagens/4.png"
+        "imagem": "/media/coroas/4.png"
       },
       {
         "id": "5",
         "nome": "",
-        "imagem": "/media/imagens/5.png"
+        "imagem": "/media/coroas/5.png"
       },
       {
         "id": "6",
         "nome": "",
-        "imagem": "/media/imagens/6.png"
+        "imagem": "/media/coroas/6.png"
       },
       {
         "id": "7",
         "nome": "",
-        "imagem": "/media/imagens/7.png"
+        "imagem": "/media/coroas/7.png"
       },
       {
         "id": "8",
         "nome": "",
-        "imagem": "/media/imagens/8.png"
+        "imagem": "/media/coroas/8.png"
       },
       {
         "id": "9",
         "nome": "",
-        "imagem": "/media/imagens/9.png"
+        "imagem": "/media/coroas/9.png"
       },
       {
         "id": "10",
         "nome": "",
-        "imagem": "/media/imagens/10.png"
+        "imagem": "/media/coroas/10.png"
       },
       {
         "id": "11",
         "nome": "",
-        "imagem": "/media/imagens/11.png"
+        "imagem": "/media/coroas/11.png"
       }
     ]
   },

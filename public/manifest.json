@@ -9,7 +9,7 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/media/imagens/logo_crop.png",
+      "src": "/media/brand/logo_crop.png",
       "sizes": "any",
       "type": "image/png"
     }
