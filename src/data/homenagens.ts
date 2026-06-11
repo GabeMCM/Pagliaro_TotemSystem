@@ -7,7 +7,7 @@ export const homenagens: Homenagem[] = [
     "descricao": "Uma homenagem tradicional e solene.",
     "faixa": "R$120–280",
     "valor": 120,
-    "imagem": "/img/coroa-base.png",
+    "imagem": "/media/coroas/1.png",
     "ativo": true,
     "modelos": [
       {

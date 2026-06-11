@@ -48,6 +48,7 @@ function InicioPage() {
             </div>
           </InteractiveCard>
 
+          {/* Botão Como Funciona temporariamente desativado
           <InteractiveCard 
             onClick={() => {}}
             animationDelay="300ms"
@@ -60,6 +61,7 @@ function InicioPage() {
               <h2 className="text-xl md:text-2xl font-serif text-ui-text">{STRINGS.inicio.opcoes.comoFunciona}</h2>
             </div>
           </InteractiveCard>
+          */}
 
           <InteractiveCard 
             to="/instituicoes"
