@@ -247,14 +247,25 @@ function tick(time: number) {
   root.style.setProperty('--mountain-1', lerpColor(DAY.mountain1, currentNightMountain1, nightOpacity));
   root.style.setProperty('--mountain-2', lerpColor(DAY.mountain2, currentNightMountain2, nightOpacity));
   
+  // UI Colors - Usamos uma transição muito mais rápida para a UI
+  // Para evitar que o fundo (card) e o texto se misturem e fiquem ambos cinzas com baixo contraste
+  // durante as 2 horas de transição, aceleramos a transição da UI para durar apenas ~5 minutos.
+  let uiNightOpacity = nightOpacity;
+  if (nightOpacity > 0 && nightOpacity < 1) {
+    // Transição rápida entre 0.48 e 0.52 (ao redor de 18:00 ou 06:00)
+    uiNightOpacity = Math.max(0, Math.min(1, (nightOpacity - 0.48) * 25));
+    // Suaviza as pontas
+    uiNightOpacity = uiNightOpacity * uiNightOpacity * (3 - 2 * uiNightOpacity);
+  }
+
   root.style.setProperty('--cloud-color', lerpColor(DAY.cloud, currentNightCloud, nightOpacity));
-  root.style.setProperty('--ui-shadow', lerpColorRgba(DAY_A.shadow, currentNightShadow, nightOpacity));
-  root.style.setProperty('--ui-glass', lerpColorRgba(DAY_A.glass, currentNightGlass, nightOpacity));
+  root.style.setProperty('--ui-shadow', lerpColorRgba(DAY_A.shadow, currentNightShadow, uiNightOpacity));
+  root.style.setProperty('--ui-glass', lerpColorRgba(DAY_A.glass, currentNightGlass, uiNightOpacity));
   
-  root.style.setProperty('--ui-text', lerpColor(DAY.text, currentNightText, nightOpacity));
-  root.style.setProperty('--ui-text-muted', lerpColor(DAY.textMuted, currentNightTextMuted, nightOpacity));
-  root.style.setProperty('--ui-card', lerpColorRgba(DAY_A.card, currentNightCard, nightOpacity));
-  root.style.setProperty('--ui-border', lerpColorRgba(DAY_A.border, currentNightBorder, nightOpacity));
+  root.style.setProperty('--ui-text', lerpColor(DAY.text, currentNightText, uiNightOpacity));
+  root.style.setProperty('--ui-text-muted', lerpColor(DAY.textMuted, currentNightTextMuted, uiNightOpacity));
+  root.style.setProperty('--ui-card', lerpColorRgba(DAY_A.card, currentNightCard, uiNightOpacity));
+  root.style.setProperty('--ui-border', lerpColorRgba(DAY_A.border, currentNightBorder, uiNightOpacity));
 
   root.style.setProperty('--ground-darkness', Math.min(1, nightOpacity + 0.3).toFixed(3));
   document.documentElement.style.setProperty('--wind-x', (baseWind * 15 - 5).toFixed(2) + 'px');
