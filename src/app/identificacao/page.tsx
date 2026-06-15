@@ -153,7 +153,7 @@ export default function IdentificacaoPage() {
                     value={nomeCliente}
                     onChange={(e) => setNomeCliente(e.target.value)}
                     placeholder="Como deseja ser identificado?"
-                    className="w-full bg-background border-2 border-border/70 rounded-xl p-4 text-lg text-ui-text focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all"
+                    className="w-full bg-muted/20 border-2 border-border/70 rounded-xl p-4 text-lg text-ui-text focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all"
                   />
                 </div>
                 
@@ -166,7 +166,7 @@ export default function IdentificacaoPage() {
                     onChange={(e) => setTelefoneCliente(formatTelefone(e.target.value))}
                     placeholder="(00) 00000-0000"
                     maxLength={15}
-                    className="w-full bg-background border-2 border-border/70 rounded-xl p-4 text-lg text-ui-text focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all"
+                    className="w-full bg-muted/20 border-2 border-border/70 rounded-xl p-4 text-lg text-ui-text focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all"
                   />
                 </div>
               </div>

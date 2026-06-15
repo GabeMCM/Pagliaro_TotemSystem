@@ -79,7 +79,7 @@ export default function FaixaPage() {
               value={frase}
               onChange={(e) => setFrase(e.target.value)}
               placeholder="Ex: Saudades eternas da sua família."
-              className="w-full bg-background border-2 border-border/70 rounded-2xl p-5 text-xl text-ui-text focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all resize-none h-32"
+              className="w-full bg-muted/20 border-2 border-border/70 rounded-2xl p-5 text-xl text-ui-text focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all resize-none h-32"
             />
           </div>
 
