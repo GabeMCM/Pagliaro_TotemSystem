@@ -11,6 +11,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # Compilação e Build
+.next
 dist
 dist-ssr
 *.local
@@ -37,3 +38,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+/src/generated/prisma

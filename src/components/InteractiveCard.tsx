@@ -1,10 +1,12 @@
+"use client";
+
 import React from 'react';
-import { Link } from '@tanstack/react-router';
+import Link from 'next/link';
 
 interface InteractiveCardProps {
   children: React.ReactNode;
   onClick?: () => void;
-  to?: string;
+  href?: string;
   animationDelay?: string;
   className?: string;
 }
@@ -12,16 +14,16 @@ interface InteractiveCardProps {
 export const InteractiveCard: React.FC<InteractiveCardProps> = ({
   children,
   onClick,
-  to,
+  href,
   animationDelay,
   className = '',
 }) => {
   const baseClass = `group rounded-3xl border border-border/70 bg-card/80 shadow-soft backdrop-blur hover:-translate-y-1.5 hover:shadow-card transition-all duration-500 animate-rise focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 overflow-hidden ${className}`;
   const style = animationDelay ? { animationDelay } : undefined;
 
-  if (to) {
+  if (href) {
     return (
-      <Link to={to} className={baseClass} style={style}>
+      <Link href={href} className={baseClass} style={style}>
         {children}
       </Link>
     );

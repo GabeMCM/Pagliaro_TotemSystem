@@ -2,7 +2,8 @@ export interface ModeloHomenagem {
   id: string;
   nome: string;
   descricao?: string;
-  imagem: string;
+  imagem?: string;
+  valor?: number | null;
 }
 
 export interface Homenagem {
@@ -30,6 +31,10 @@ export interface Ong {
   cnpj?: string;
   cep?: string;
   endereco?: string;
+  chavePix?: string;
+  pixTitular?: string;
+  pixCidade?: string;
+  qrCodeImagem?: string;
   midias?: {
     tipo: 'foto' | 'video';
     url: string;

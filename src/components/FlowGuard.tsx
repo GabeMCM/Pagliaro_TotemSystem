@@ -1,5 +1,7 @@
-import React from 'react';
-import { Navigate } from '@tanstack/react-router';
+"use client";
+
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useHomenagem } from '../lib/homenagem-store';
 
 interface FlowGuardProps {
@@ -10,13 +12,20 @@ interface FlowGuardProps {
 
 export const FlowGuard: React.FC<FlowGuardProps> = ({ children, require, fallback = '/' }) => {
   const { homenagem, ong } = useHomenagem();
+  const router = useRouter();
 
-  if (require === 'homenagem' && !homenagem) {
-    return <Navigate to={fallback} />;
-  }
+  const isMissingHomenagem = require === 'homenagem' && !homenagem;
+  const isMissingBoth = require === 'both' && (!homenagem || !ong);
+  const shouldRedirect = isMissingHomenagem || isMissingBoth;
 
-  if (require === 'both' && (!homenagem || !ong)) {
-    return <Navigate to={fallback} />;
+  useEffect(() => {
+    if (shouldRedirect) {
+      router.replace(fallback);
+    }
+  }, [shouldRedirect, router, fallback]);
+
+  if (shouldRedirect) {
+    return null; // Return nothing while redirecting
   }
 
   return <>{children}</>;

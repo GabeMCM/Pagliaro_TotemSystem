@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import { CONFIG } from '../../data/config';
 import { ENV_STATIC } from '../../data/environment-palette';

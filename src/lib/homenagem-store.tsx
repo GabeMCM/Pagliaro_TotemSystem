@@ -1,3 +1,5 @@
+"use client";
+
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { Homenagem, ModeloHomenagem, Ong } from "../data/catalogo";
 import { CONFIG } from "../data/config";
@@ -25,6 +27,18 @@ interface HomenagemState {
   setFotos: (fotos: FotoMemorial[] | ((prev: FotoMemorial[]) => FotoMemorial[])) => void;
   setFrase: (frase: string) => void;
   setOng: (ong: Ong | null) => void;
+  
+  // Novos campos de Identificação
+  obitoId: string;
+  nomeCliente: string;
+  telefoneCliente: string;
+  anonimo: boolean;
+  
+  setObitoId: (id: string) => void;
+  setNomeCliente: (nome: string) => void;
+  setTelefoneCliente: (telefone: string) => void;
+  setAnonimo: (anonimo: boolean) => void;
+  
   reset: () => void;
 }
 
@@ -37,12 +51,21 @@ export const HomenagemProvider = ({ children }: { children: ReactNode }) => {
   const [frase, setFrase] = useState<string>("");
   const [ong, setOng] = useState<Ong | null>(null);
 
+  const [obitoId, setObitoId] = useState<string>("");
+  const [nomeCliente, setNomeCliente] = useState<string>("");
+  const [telefoneCliente, setTelefoneCliente] = useState<string>("");
+  const [anonimo, setAnonimo] = useState<boolean>(false);
+
   const reset = () => {
     setHomenagem(null);
     setModelo(null);
     setFotos([]);
     setFrase("");
     setOng(null);
+    setObitoId("");
+    setNomeCliente("");
+    setTelefoneCliente("");
+    setAnonimo(false);
   };
 
   const value: HomenagemState = {
@@ -52,11 +75,19 @@ export const HomenagemProvider = ({ children }: { children: ReactNode }) => {
     fotosExistentes: FOTOS_EXISTENTES,
     frase,
     ong,
+    obitoId,
+    nomeCliente,
+    telefoneCliente,
+    anonimo,
     setHomenagem,
     setModelo,
     setFotos,
     setFrase,
     setOng,
+    setObitoId,
+    setNomeCliente,
+    setTelefoneCliente,
+    setAnonimo,
     reset,
   };
 

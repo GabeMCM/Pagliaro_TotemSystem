@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useRef, useEffect } from 'react'
 
 export function FadeImage({ className = '', src, alt, style, onLoad, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) {

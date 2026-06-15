@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@tanstack/react-router';
+import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { Botanical } from './Botanical';
 
@@ -11,11 +11,11 @@ interface TotemScreenProps {
 
 export const TotemScreen = ({ children, back, showHome = true }: TotemScreenProps) => {
   return (
-    <div className="absolute inset-0 flex items-center justify-center p-0 md:p-10 pointer-events-none z-50">
+    <div className="absolute inset-0 flex flex-col p-0 md:p-10 pointer-events-none z-50">
       
       {/* O "Modal" de Vidro que contém o site */}
       <div 
-        className="relative w-full h-full backdrop-blur-xl border border-white/40 shadow-[0_30px_100px_rgba(0,0,0,0.3)] rounded-none md:rounded-[3rem] flex flex-col font-sans text-taupe overflow-hidden pointer-events-auto transition-colors duration-1000"
+        className="relative w-full flex-1 backdrop-blur-xl border border-white/40 shadow-[0_30px_100px_rgba(0,0,0,0.3)] rounded-none md:rounded-[3rem] flex flex-col font-sans text-taupe overflow-hidden pointer-events-auto transition-colors duration-1000"
         style={{ backgroundColor: 'var(--ui-glass)' }}
       >
         {/* Marca d'agua botânica dentro do modal para manter a elegância */}
@@ -27,7 +27,7 @@ export const TotemScreen = ({ children, back, showHome = true }: TotemScreenProp
           <div className="flex-1">
             {back ? (
               <Link 
-                to={back as any} 
+                href={back} 
                 className="inline-flex items-center gap-2 md:gap-3 py-4 px-2 -ml-2 text-ui-text hover:text-primary transition-colors duration-500 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                 aria-label="Voltar"
               >
@@ -42,7 +42,7 @@ export const TotemScreen = ({ children, back, showHome = true }: TotemScreenProp
           {showHome && (
             <div className="flex-1 flex justify-end">
               <Link 
-                to="/inicio" 
+                href="/inicio" 
                 className="py-4 px-3 md:px-6 text-ui-text font-medium hover:text-primary transition-colors duration-500 uppercase tracking-widest text-xs md:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
               >
                 Início

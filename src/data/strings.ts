@@ -82,7 +82,9 @@ export const STRINGS = {
     resumo: "Resumo",
     gesto: "Gesto",
     destino: "Destino",
-    botao: "Já realizei a contribuição",
+    botaoFinalizar: "JÁ PAGUEI, QUERO FINALIZAR!",
+    atencaoTitulo: "Atenção!",
+    atencaoCorpo: "Após realizar o pagamento, clique no botão abaixo para confirmar sua homenagem.",
   },
 
   confirmacao: {
@@ -94,6 +96,10 @@ export const STRINGS = {
     lembrancas: "Lembranças",
     destinoSolidario: "Destino Solidário",
     concluir: "Concluir",
+    avalieTitulo: "Avalie nosso trabalho!",
+    avalieCorpo: "Sua opinião é muito importante para continuarmos aprimorando o Culto da Saudade. Aponte a câmera do seu celular para o QR Code abaixo:",
+    avalieTempo: "Leva menos de 1 minuto!",
+    formLink: "https://docs.google.com/forms/d/e/1FAIpQLSc6qucSal3-PvpLNkSUJoYCUj_cszUuqz1-AX3LFuHchH1F2w/viewform?usp=header",
     /** Template: recebe quantidade de fotos */
     fotosAdicionadas: (n: number) => `${n} fotos adicionadas`,
   },

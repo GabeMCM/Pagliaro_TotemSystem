@@ -40,14 +40,76 @@
   --radius: 1rem;
 }
 
+.admin-theme {
+  /* Forçar a aplicação das cores no painel de administração via overrides de escopo */
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+.admin-theme .bg-background {
+  background-color: #f8fafc !important;
+}
+
+.admin-theme .bg-card {
+  background-color: #ffffff !important;
+}
+
+.admin-theme .bg-card\/80,
+.admin-theme .bg-card\/50,
+.admin-theme .bg-card\/95 {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.admin-theme .bg-primary {
+  background-color: #3b82f6 !important;
+}
+
+.admin-theme .bg-primary\/10 {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+}
+
+.admin-theme .text-primary {
+  color: #3b82f6 !important;
+}
+
+.admin-theme .text-primary-foreground {
+  color: #ffffff !important;
+}
+
+.admin-theme .text-ui-text {
+  color: #0f172a !important;
+}
+
+.admin-theme .text-taupe {
+  color: #64748b !important;
+}
+
+.admin-theme .border-border,
+.admin-theme .border-border\/70,
+.admin-theme .border-border\/50 {
+  border-color: #e2e8f0 !important;
+}
+
+.admin-theme .bg-muted\/50,
+.admin-theme .bg-muted\/30,
+.admin-theme .bg-muted\/20 {
+  background-color: #f1f5f9 !important;
+}
+
 body {
   font-family: "Mulish", sans-serif;
   background-color: var(--background);
   color: var(--ui-text, #4a4340);
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 html {
   font-size: 16px;
+  height: 100%;
+  overflow: hidden;
 }
 
 /* Scaling Dinâmico para Totens 4K */

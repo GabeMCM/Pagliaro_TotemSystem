@@ -9,6 +9,8 @@ export const CONFIG = {
   totem: {
     /** Tempo em ms antes do auto-reset na tela de confirmação */
     autoResetMs: 20_000,
+    /** Tempo extra concedido para o escaneamento do QR Code na confirmação */
+    qrCodeExtraMs: 15_000,
     /** Intervalo em ms entre rotações de mensagem no splash */
     splashRotationMs: 9_000,
   },

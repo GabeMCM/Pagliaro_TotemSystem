@@ -1,0 +1,122 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Institution {
+  id           String   @id @default(uuid())
+  nome         String
+  causa        String
+  descricao    String
+  sobre        String?
+  website      String?
+  email        String?
+  telefone     String[] // Array de strings (compatível com PostgreSQL)
+  cnpj         String?
+  cep          String?
+  endereco     String?
+  chavePix     String?  // Chave PIX opcional
+  pixTitular   String?  // Nome do titular da conta
+  pixCidade    String?  // Cidade do PIX
+  qrCodeImagem String?  // Caminho da imagem caso o cliente não queira gerar dinamicamente
+  ativo        Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  orders       Order[]
+}
+
+model CatalogItem {
+  id          String   @id @default(uuid())
+  nome        String
+  descricao   String
+  faixa       String
+  valor       Float
+  imagem      String
+  requerFotos Boolean  @default(false)
+  ativo       Boolean  @default(true)
+  caminhoUrl  String?  // Ex: '/mural-da-memoria'
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  modelos     CatalogModel[]
+  orders      Order[]
+}
+
+model CatalogModel {
+  id            String   @id @default(uuid())
+  nome          String
+  descricao     String?
+  imagem        String
+  valor         Float?   // Valor individual do modelo (opcional, sobrepõe o do CatalogItem se existir)
+  catalogItemId String
+  catalogItem   CatalogItem @relation(fields: [catalogItemId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Obito {
+  id               String   @id @default(uuid())
+  nome             String
+  dataFalecimento  DateTime?
+  localVelorio     String?
+  ativo            Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  orders           Order[]
+}
+
+model Order {
+  id               String   @id @default(uuid())
+  catalogItemId    String
+  catalogItem      CatalogItem @relation(fields: [catalogItemId], references: [id])
+  institutionId    String
+  institution      Institution @relation(fields: [institutionId], references: [id])
+  
+  // Relacionamento opcional com Obito
+  obitoId          String?
+  obito            Obito? @relation(fields: [obitoId], references: [id])
+  
+  // Dados do cliente (Cadastro)
+  nomeCliente      String?
+  telefoneCliente  String?
+  anonimo          Boolean @default(false)
+
+  modeloNome       String?  // Caso tenha escolhido um modelo específico (Ex: "Coroa Ouro")
+  valorPago        Float
+  status           OrderStatus @default(PENDENTE)
+  frase            String?
+  fotos            String[] // Array com as URLs das fotos anexadas
+  legendaFotos     String[] // Array com as legendas das fotos anexadas
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+enum OrderStatus {
+  PENDENTE
+  PAGO
+  CANCELADO
+  FINALIZADO
+}
+
+model MessageTemplate {
+  id        String   @id @default(uuid())
+  texto     String
+  ativo     Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Doador {
+  id        String   @id @default(uuid())
+  nome      String
+  telefone  String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

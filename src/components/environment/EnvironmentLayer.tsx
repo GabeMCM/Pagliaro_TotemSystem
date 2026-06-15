@@ -1,13 +1,20 @@
+"use client";
+
 import React, { useEffect } from 'react';
 import { startEnvironment, stopEnvironment } from '../../lib/environment/engine';
 import { SkyLayer, StarsLayer, CelestialLayer, MountainLayer, GrassLayer, CloudsLayer, TreeLayer, WindLayer, GroundLayer, FallingLeavesLayer } from './Layers';
 
 export const EnvironmentLayer = () => {
+  const [isMounted, setIsMounted] = React.useState(false);
+
   useEffect(() => {
+    setIsMounted(true);
     // Inicia o motor Singleton temporal independente
     startEnvironment();
     return () => stopEnvironment();
   }, []);
+
+  if (!isMounted) return <div className="absolute inset-0 bg-[var(--background)] z-0" />;
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden bg-[var(--background)] z-0">
