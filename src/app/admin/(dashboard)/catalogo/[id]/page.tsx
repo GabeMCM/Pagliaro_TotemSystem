@@ -218,7 +218,7 @@ export default function AdminCatalogoConfigPage({ params }: { params: Promise<{ 
 
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h1 className="text-3xl font-serif text-ui-text flex items-center gap-3">
+          <h1 className="text-3xl font-semibold text-ui-text flex items-center gap-3">
             <Flower2 className="w-8 h-8 text-primary" /> Configuração: {item.nome}
           </h1>
           <p className="text-taupe mt-2">Altere os detalhes principais e gerencie os modelos (fotos) desta homenagem.</p>
@@ -227,7 +227,7 @@ export default function AdminCatalogoConfigPage({ params }: { params: Promise<{ 
 
       {/* DADOS PRINCIPAIS */}
       <div className="bg-card/50 border border-border/70 p-6 md:p-8 rounded-3xl backdrop-blur shadow-soft mb-10">
-        <h2 className="text-xl font-serif text-ui-text mb-6 border-b border-border/50 pb-4">Dados Principais</h2>
+        <h2 className="text-xl font-semibold text-ui-text mb-6 border-b border-border/50 pb-4">Dados Principais</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="col-span-1 md:col-span-2">
             <label className="block text-sm font-medium text-taupe mb-2">Nome da Homenagem</label>
@@ -298,7 +298,7 @@ export default function AdminCatalogoConfigPage({ params }: { params: Promise<{ 
       {/* MODELOS */}
       <div className="bg-card/50 border border-border/70 p-6 md:p-8 rounded-3xl backdrop-blur shadow-soft">
         <div className="flex justify-between items-center border-b border-border/50 pb-4 mb-6">
-          <h2 className="text-xl font-serif text-ui-text">Modelos / Opções (Galeria)</h2>
+          <h2 className="text-xl font-semibold text-ui-text">Modelos / Opções (Galeria)</h2>
           <button 
             onClick={handleOpenAddModal}
             className="bg-primary/10 text-primary hover:bg-primary/20 px-4 py-2 rounded-xl transition-colors font-medium flex items-center gap-2 text-sm"
@@ -361,7 +361,7 @@ export default function AdminCatalogoConfigPage({ params }: { params: Promise<{ 
               <X className="w-5 h-5" />
             </button>
             
-            <h3 className="text-2xl font-serif text-ui-text mb-6 flex items-center gap-2 border-b border-border/50 pb-4">
+            <h3 className="text-2xl font-semibold text-ui-text mb-6 flex items-center gap-2 border-b border-border/50 pb-4">
               {editingModelId ? (
                 <><Edit2 className="w-6 h-6 text-primary"/> Editar Modelo</>
               ) : (

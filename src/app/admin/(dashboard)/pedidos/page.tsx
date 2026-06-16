@@ -3,9 +3,16 @@
 import { useState, useEffect } from "react";
 import { ScrollText, Loader2, User, Phone, MapPin, Calendar, CheckCircle, ChevronDown, ChevronUp, UserX, Clock, Building } from "lucide-react";
 import { formatCurrency } from "../../../../lib/utils";
+import { Order, CatalogItem, Institution, Obito } from "@prisma/client";
+
+type PedidoComRelacoes = Order & {
+  catalogItem: CatalogItem | null;
+  institution: Institution | null;
+  obito: Obito | null;
+};
 
 export default function AdminPedidosPage() {
-  const [pedidos, setPedidos] = useState<any[]>([]);
+  const [pedidos, setPedidos] = useState<PedidoComRelacoes[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<"ativos" | "historico">("ativos");
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -65,7 +72,7 @@ export default function AdminPedidosPage() {
     <div className="p-4 md:p-10 max-w-5xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h1 className="text-3xl font-serif text-ui-text flex items-center gap-3">
+          <h1 className="text-3xl font-semibold text-ui-text flex items-center gap-3">
             <ScrollText className="w-8 h-8 text-primary" /> Fila de Pedidos
           </h1>
           <p className="text-taupe mt-2">Gerencie as homenagens pendentes de confecção/entrega.</p>
@@ -185,7 +192,7 @@ export default function AdminPedidosPage() {
                           <h4 className="text-xs uppercase tracking-wider font-semibold text-taupe mb-2">Mensagem a ser impressa na Faixa</h4>
                           <div className="bg-white p-4 rounded-xl border border-border/50 shadow-sm relative">
                             <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-l-xl"></div>
-                            <p className="text-ui-text font-serif text-lg italic leading-snug">
+                            <p className="text-ui-text font-semibold text-lg italic leading-snug">
                               "{pedido.frase}"
                             </p>
                           </div>

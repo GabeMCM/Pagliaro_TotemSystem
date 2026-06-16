@@ -14,6 +14,10 @@ export const CONFIG = {
     /** Intervalo em ms entre rotações de mensagem no splash */
     splashRotationMs: 9_000,
   },
+  splashMessage: {
+    /** Limite de caracteres para a mensagem da tela inicial */
+    maxLength: 150,
+  },
   memorial: {
     /** Quantidade máxima de fotos permitidas por memorial */
     limiteFotos: 20,

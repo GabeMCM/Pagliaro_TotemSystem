@@ -20,7 +20,13 @@ export async function middleware(request: NextRequest) {
 
     try {
       // Verifica se o token é válido
-      await jwtVerify(token, JWT_SECRET);
+      const { payload } = await jwtVerify(token, JWT_SECRET);
+      
+      // RBAC: Bloqueia acesso à página de usuários se não for GESTOR
+      if (pathname.startsWith('/admin/usuarios') && payload.role !== 'GESTOR') {
+        return NextResponse.redirect(new URL('/admin', request.url));
+      }
+
       return NextResponse.next();
     } catch (error) {
       // Token inválido ou expirado

@@ -1,87 +1,99 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Users, Plus, Edit2, Trash2, Loader2, X } from "lucide-react";
-import { Obito } from "@prisma/client";
+import { MessageSquareQuote, Plus, Edit2, Trash2, Loader2, X, ToggleLeft, ToggleRight } from "lucide-react";
+import { SplashMessage } from "@prisma/client";
 import { ConfirmModal } from "../../../../components/ConfirmModal";
+import { CONFIG } from "../../../../data/config";
+import { STRINGS } from "../../../../data/strings";
+import toast from "react-hot-toast";
 
-export default function AdminObitosPage() {
-  const [obitos, setObitos] = useState<Obito[]>([]);
+export default function AdminSplashMessagesPage() {
+  const [messages, setMessages] = useState<SplashMessage[]>([]);
   const [loading, setLoading] = useState(true);
   
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingObito, setEditingObito] = useState<Obito | null>(null);
+  const [editingMessage, setEditingMessage] = useState<SplashMessage | null>(null);
   
   // Confirm Modal State
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  const [obitoToDelete, setObitoToDelete] = useState<string | null>(null);
+  const [messageToDelete, setMessageToDelete] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   
   // Form State
   const [formData, setFormData] = useState({
-    nome: "",
-    localVelorio: "",
-    dataFalecimento: "",
+    texto: "",
     ativo: true,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    fetchObitos();
+    fetchMessages();
   }, []);
 
-  const fetchObitos = async () => {
+  const fetchMessages = async () => {
     try {
-      const res = await fetch("/api/obitos");
+      const res = await fetch("/api/splash-messages");
       const data = await res.json();
       if (Array.isArray(data)) {
-        setObitos(data);
+        setMessages(data);
       } else {
-        setObitos([]);
+        console.error("Retorno inesperado da API:", data);
+        setMessages([]);
       }
     } catch (error) {
-      console.error("Erro ao buscar obitos", error);
+      console.error("Erro ao buscar mensagens", error);
     } finally {
       setLoading(false);
     }
   };
 
   const requestDelete = (id: string) => {
-    setObitoToDelete(id);
+    setMessageToDelete(id);
     setIsConfirmOpen(true);
   };
 
   const confirmDelete = async () => {
-    if (!obitoToDelete) return;
+    if (!messageToDelete) return;
     setIsDeleting(true);
     try {
-      await fetch(`/api/obitos/${obitoToDelete}`, { method: "DELETE" });
-      fetchObitos();
+      toast.success(STRINGS.admin.feedback.sucessoExcluir);
+      fetchMessages();
     } catch (error) {
-      alert("Erro ao deletar");
+      toast.error(STRINGS.admin.feedback.erroExcluir);
     } finally {
       setIsDeleting(false);
       setIsConfirmOpen(false);
-      setObitoToDelete(null);
+      setMessageToDelete(null);
     }
   };
 
-  const openModal = (obito?: Obito) => {
-    if (obito) {
-      setEditingObito(obito);
+  const toggleAtivo = async (message: SplashMessage) => {
+    try {
+      await fetch(`/api/splash-messages/${message.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...message, ativo: !message.ativo }),
+      });
+      toast.success(STRINGS.admin.feedback.sucessoSalvar);
+      fetchMessages();
+    } catch (error) {
+      toast.error(STRINGS.admin.feedback.erroSalvar);
+    }
+  };
+
+  const openModal = (message?: SplashMessage) => {
+    if (message) {
+      setEditingMessage(message);
       setFormData({
-        nome: obito.nome,
-        localVelorio: obito.localVelorio || "",
-        dataFalecimento: obito.dataFalecimento ? new Date(obito.dataFalecimento).toISOString().split('T')[0] : "",
-        ativo: obito.ativo,
+        texto: message.texto,
+        ativo: message.ativo,
       });
     } else {
-      setEditingObito(null);
+      setEditingMessage(null);
       setFormData({
-        nome: "",
-        localVelorio: "",
-        dataFalecimento: new Date().toISOString().split('T')[0],
+        texto: "",
         ativo: true,
       });
     }
@@ -90,36 +102,36 @@ export default function AdminObitosPage() {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setEditingObito(null);
+    setEditingMessage(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (formData.texto.length > CONFIG.splashMessage.maxLength) {
+      toast.error(`A frase não pode exceder ${CONFIG.splashMessage.maxLength} caracteres para garantir legibilidade.`);
+      return;
+    }
+
     setIsSubmitting(true);
     
     try {
-      const url = editingObito ? `/api/obitos/${editingObito.id}` : "/api/obitos";
-      const method = editingObito ? "PUT" : "POST";
+      const url = editingMessage ? `/api/splash-messages/${editingMessage.id}` : "/api/splash-messages";
+      const method = editingMessage ? "PUT" : "POST";
       
-      const payload = {
-        ...formData,
-        dataFalecimento: formData.dataFalecimento ? new Date(formData.dataFalecimento).toISOString() : null
-      };
-
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(formData),
       });
 
       if (res.ok) {
-        closeModal();
-        fetchObitos();
+        toast.success(STRINGS.admin.feedback.sucessoSalvar);
+        fetchMessages();
       } else {
-        alert("Erro ao salvar óbito.");
+        toast.error(STRINGS.admin.feedback.erroSalvar);
       }
     } catch (error) {
-      alert("Erro de conexão.");
+      toast.error(STRINGS.admin.feedback.erroConexao);
     } finally {
       setIsSubmitting(false);
     }
@@ -130,16 +142,16 @@ export default function AdminObitosPage() {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
           <h1 className="text-3xl font-semibold text-ui-text flex items-center gap-3">
-            <Users className="w-8 h-8 text-primary" /> Óbitos / Homenageados
+            <MessageSquareQuote className="w-8 h-8 text-primary" /> Mensagens da Tela Inicial
           </h1>
-          <p className="text-taupe mt-2">Gerencie os falecidos disponíveis para escolha no Totem.</p>
+          <p className="text-taupe mt-2">Gerencie as frases que ficam mudando automaticamente na tela de descanso do Totem.</p>
         </div>
         
         <button 
           onClick={() => openModal()}
           className="bg-primary text-primary-foreground px-6 py-3 rounded-full font-medium tracking-wide flex items-center gap-2 hover:bg-primary/90 transition-all shadow-soft shrink-0"
         >
-          <Plus className="w-5 h-5" /> Novo Óbito
+          <Plus className="w-5 h-5" /> Nova Mensagem
         </button>
       </div>
 
@@ -148,56 +160,61 @@ export default function AdminObitosPage() {
           <table className="w-full text-left whitespace-nowrap md:whitespace-normal">
             <thead className="bg-muted/50 border-b border-border/70 text-ui-text">
               <tr>
-                <th className="p-5 font-medium">Nome do Falecido</th>
-                <th className="p-5 font-medium">Local (Velório)</th>
-                <th className="p-5 font-medium">Data do Óbito</th>
-                <th className="p-5 font-medium">Status no Totem</th>
+                <th className="p-5 font-medium">Frase / Mensagem</th>
+                <th className="p-5 font-medium w-32 text-center">Caracteres</th>
+                <th className="p-5 font-medium">Status</th>
                 <th className="p-5 font-medium text-right">Ações</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border/50">
               {loading ? (
                 <tr>
-                  <td colSpan={5} className="p-10 text-center text-taupe">
+                  <td colSpan={4} className="p-10 text-center text-taupe">
                     <Loader2 className="w-8 h-8 animate-spin mx-auto text-primary" />
                   </td>
                 </tr>
-              ) : obitos.length === 0 ? (
+              ) : messages.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="p-10 text-center text-taupe">
-                    Nenhum óbito cadastrado.
+                  <td colSpan={4} className="p-10 text-center text-taupe">
+                    Nenhuma mensagem cadastrada. Cadastre as opções para a tela de descanso.
                   </td>
                 </tr>
               ) : (
-                obitos.map((obito) => (
-                  <tr key={obito.id} className="hover:bg-muted/20 transition-colors">
+                messages.map((message) => (
+                  <tr key={message.id} className="hover:bg-muted/20 transition-colors">
                     <td className="p-5">
-                      <div className="font-medium text-ui-text">{obito.nome}</div>
+                      <div className="font-medium text-ui-text">"{message.texto}"</div>
                     </td>
-                    <td className="p-5 text-taupe">
-                      {obito.localVelorio || "Não informado"}
-                    </td>
-                    <td className="p-5 text-taupe">
-                      {obito.dataFalecimento ? new Date(obito.dataFalecimento).toLocaleDateString() : "Não informada"}
+                    <td className="p-5 text-center">
+                      <span className={`text-sm ${message.texto.length > (CONFIG.splashMessage.maxLength * 0.8) ? 'text-orange-500' : 'text-taupe'}`}>
+                        {message.texto.length}/{CONFIG.splashMessage.maxLength}
+                      </span>
                     </td>
                     <td className="p-5">
                       <span className={`px-3 py-1 text-xs rounded-full font-medium ${
-                        obito.ativo ? "bg-green-100 text-green-700 border border-green-200" : "bg-red-100 text-red-700 border border-red-200"
+                        message.ativo ? "bg-green-100 text-green-700 border border-green-200" : "bg-red-100 text-red-700 border border-red-200"
                       }`}>
-                        {obito.ativo ? "Ativo (Aparece no Totem)" : "Inativo"}
+                        {message.ativo ? "Ativa" : "Inativa"}
                       </span>
                     </td>
                     <td className="p-5 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <button 
-                          onClick={() => openModal(obito)}
+                          onClick={() => toggleAtivo(message)}
+                          className={`p-2 rounded-lg transition-colors ${message.ativo ? 'text-green-600 hover:bg-green-50' : 'text-taupe hover:bg-muted'}`}
+                          title={message.ativo ? "Desativar" : "Ativar"}
+                        >
+                          {message.ativo ? <ToggleRight className="w-5 h-5" /> : <ToggleLeft className="w-5 h-5" />}
+                        </button>
+                        <button 
+                          onClick={() => openModal(message)}
                           className="p-2 text-taupe hover:text-primary hover:bg-primary/10 rounded-lg transition-colors"
                           title="Editar"
                         >
                           <Edit2 className="w-4 h-4" />
                         </button>
                         <button 
-                          onClick={() => requestDelete(obito.id)}
+                          onClick={() => requestDelete(message.id)}
                           className="p-2 text-taupe hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                           title="Excluir"
                         >
@@ -220,7 +237,7 @@ export default function AdminObitosPage() {
             
             <div className="flex items-center justify-between p-6 border-b border-border/70 shrink-0">
               <h2 className="text-xl font-semibold text-ui-text">
-                {editingObito ? "Editar Óbito" : "Novo Óbito"}
+                {editingMessage ? "Editar Mensagem" : "Nova Mensagem"}
               </h2>
               <button onClick={closeModal} className="p-2 text-taupe hover:bg-muted/50 rounded-full transition-colors">
                 <X className="w-5 h-5" />
@@ -228,36 +245,23 @@ export default function AdminObitosPage() {
             </div>
 
             <div className="p-6 overflow-y-auto">
-              <form id="obito-form" onSubmit={handleSubmit} className="space-y-5">
+              <form id="message-form" onSubmit={handleSubmit} className="space-y-5">
                 <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-ui-text">Nome do Falecido *</label>
-                  <input 
+                  <div className="flex justify-between items-end">
+                    <label className="text-sm font-medium text-ui-text">Texto da Mensagem *</label>
+                    <span className={`text-xs ${formData.texto.length > CONFIG.splashMessage.maxLength ? 'text-red-500 font-bold' : 'text-taupe'}`}>
+                      {formData.texto.length}/{CONFIG.splashMessage.maxLength}
+                    </span>
+                  </div>
+                  <textarea 
                     required
-                    value={formData.nome}
-                    onChange={e => setFormData({...formData, nome: e.target.value})}
-                    className="w-full bg-background border border-border/70 rounded-xl px-4 py-3 text-ui-text focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    placeholder="Ex: João da Silva"
+                    maxLength={CONFIG.splashMessage.maxLength}
+                    value={formData.texto}
+                    onChange={e => setFormData({...formData, texto: e.target.value})}
+                    className="w-full bg-background border border-border/70 rounded-xl px-4 py-3 text-ui-text focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none h-24"
+                    placeholder="Ex: Homenagear também é preservar."
                   />
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-ui-text">Local / Sala do Velório (Opcional)</label>
-                  <input 
-                    value={formData.localVelorio}
-                    onChange={e => setFormData({...formData, localVelorio: e.target.value})}
-                    className="w-full bg-background border border-border/70 rounded-xl px-4 py-3 text-ui-text focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    placeholder="Ex: Sala 2"
-                  />
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-ui-text">Data de Falecimento (Opcional)</label>
-                  <input 
-                    type="date"
-                    value={formData.dataFalecimento}
-                    onChange={e => setFormData({...formData, dataFalecimento: e.target.value})}
-                    className="w-full bg-background border border-border/70 rounded-xl px-4 py-3 text-ui-text focus:outline-none focus:ring-2 focus:ring-primary/50"
-                  />
+                  <p className="text-xs text-taupe">Aparecerá grande no meio da tela de descanso do Totem.</p>
                 </div>
 
                 <div className="flex items-center gap-3 mt-4">
@@ -269,7 +273,7 @@ export default function AdminObitosPage() {
                     className="w-5 h-5 rounded border-border/70 text-primary focus:ring-primary"
                   />
                   <label htmlFor="ativo-checkbox" className="text-sm font-medium text-ui-text cursor-pointer">
-                    Velório Ativo (Aparece como opção de homenagem no Totem)
+                    Ativa (Aparecerá na rotação da tela inicial)
                   </label>
                 </div>
               </form>
@@ -285,11 +289,11 @@ export default function AdminObitosPage() {
               </button>
               <button 
                 type="submit"
-                form="obito-form"
-                disabled={isSubmitting}
+                form="message-form"
+                disabled={isSubmitting || formData.texto.length > CONFIG.splashMessage.maxLength}
                 className="bg-primary text-primary-foreground px-8 py-2.5 rounded-full font-medium shadow-soft hover:bg-primary/90 transition-colors flex items-center gap-2 disabled:opacity-50"
               >
-                {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Salvar Óbito"}
+                {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Salvar Mensagem"}
               </button>
             </div>
 
@@ -300,13 +304,13 @@ export default function AdminObitosPage() {
       {/* Confirm Modal */}
       <ConfirmModal
         isOpen={isConfirmOpen}
-        title="Excluir Óbito"
-        description="Tem certeza que deseja deletar este óbito? Esta ação o removerá das opções no Totem."
+        title="Excluir Mensagem"
+        description="Tem certeza que deseja deletar esta mensagem? Essa ação não pode ser desfeita."
         isProcessing={isDeleting}
         onConfirm={confirmDelete}
         onCancel={() => {
           setIsConfirmOpen(false);
-          setObitoToDelete(null);
+          setMessageToDelete(null);
         }}
       />
 

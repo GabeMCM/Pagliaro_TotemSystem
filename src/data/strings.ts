@@ -114,4 +114,16 @@ export const STRINGS = {
     espacoReservado: "Espaço Reservado",
     imagemPrefix: "Imagem:",
   },
+
+  admin: {
+    feedback: {
+      sucessoExcluir: "Registro excluído com sucesso.",
+      erroExcluir: "Erro ao tentar excluir registro.",
+      sucessoSalvar: "Salvo com sucesso.",
+      erroSalvar: "Erro ao salvar alterações.",
+      limpezaConcluida: "Todos os registros finalizados foram apagados com sucesso!",
+      limpezaErro: "Falha ao apagar registros.",
+      erroConexao: "Erro ao conectar com servidor.",
+    }
+  }
 } as const;

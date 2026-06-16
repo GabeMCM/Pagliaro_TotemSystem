@@ -5,9 +5,9 @@ import { verifyAdminAuth } from "../../../../lib/auth-check";
 export const dynamic = 'force-dynamic';
 
 export async function DELETE() {
-  const isAuth = await verifyAdminAuth();
-  if (!isAuth) {
-    return NextResponse.json({ error: "Acesso negado. Token ausente ou inválido." }, { status: 401 });
+  const payload = await verifyAdminAuth();
+  if (!payload || payload.role !== 'GESTOR') {
+    return NextResponse.json({ error: "Acesso negado. Apenas gestores podem apagar o banco de dados." }, { status: 403 });
   }
   try {
     const deletedOrders = await prisma.order.deleteMany({

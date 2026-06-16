@@ -6,7 +6,10 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
   try {
+    const payload = await verifyAdminAuth();
+    
     const obitos = await prisma.obito.findMany({
+      where: payload ? undefined : { ativo: true },
       orderBy: { createdAt: "desc" },
     });
     return NextResponse.json(obitos);

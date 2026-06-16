@@ -46,6 +46,15 @@
   color: #0f172a !important;
 }
 
+.admin-theme h1,
+.admin-theme h2,
+.admin-theme h3,
+.admin-theme h4,
+.admin-theme h5,
+.admin-theme h6 {
+  font-family: var(--font-sans), "Mulish", system-ui, sans-serif !important;
+}
+
 .admin-theme .bg-background {
   background-color: #f8fafc !important;
 }

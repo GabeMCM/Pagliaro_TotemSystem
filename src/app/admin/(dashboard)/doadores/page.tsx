@@ -35,7 +35,7 @@ export default function AdminDoadoresPage() {
     <div className="p-4 md:p-10 max-w-5xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h1 className="text-3xl font-serif text-ui-text flex items-center gap-3">
+          <h1 className="text-3xl font-semibold text-ui-text flex items-center gap-3">
             <Users className="w-8 h-8 text-primary" /> Banco de Doadores
           </h1>
           <p className="text-taupe mt-2">CRM permanente de clientes que já realizaram homenagens.</p>

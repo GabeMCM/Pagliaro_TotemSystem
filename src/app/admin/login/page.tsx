@@ -4,8 +4,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Lock, LogIn, AlertCircle } from "lucide-react";
 import { STRINGS } from "../../../data/strings";
+import { adminThemeStyles } from "../../../data/admin-theme";
 
 export default function AdminLoginPage() {
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -20,7 +22,7 @@ export default function AdminLoginPage() {
       const res = await fetch("/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ username, password }),
       });
 
       const data = await res.json();
@@ -42,21 +44,7 @@ export default function AdminLoginPage() {
   return (
     <div 
       className="admin-theme min-h-screen bg-background flex flex-col items-center justify-center p-4"
-      style={{
-        '--background': '#f8fafc',
-        '--primary': '#3b82f6',
-        '--primary-foreground': '#ffffff',
-        '--secondary': '#e2e8f0',
-        '--accent': '#dbeafe',
-        '--sage': '#94a3b8',
-        '--rose': '#f43f5e',
-        '--taupe': '#64748b',
-        '--ui-text': '#0f172a',
-        '--ui-text-muted': '#475569',
-        '--card': '#ffffff',
-        '--border': '#e2e8f0',
-        '--muted': '#f1f5f9'
-      } as React.CSSProperties}
+      style={adminThemeStyles}
     >
       <div className="w-full max-w-md bg-card/80 backdrop-blur border border-border/70 p-8 md:p-10 rounded-3xl shadow-soft animate-rise">
         
@@ -66,7 +54,7 @@ export default function AdminLoginPage() {
           </div>
         </div>
 
-        <h1 className="text-2xl md:text-3xl font-serif text-ui-text text-center mb-2">
+        <h1 className="text-2xl md:text-3xl font-semibold text-ui-text text-center mb-2">
           Acesso Restrito
         </h1>
         <p className="text-taupe text-center mb-8">
@@ -81,24 +69,39 @@ export default function AdminLoginPage() {
         )}
 
         <form onSubmit={handleLogin} className="space-y-6">
-          <div className="space-y-2">
-            <label htmlFor="password" className="block text-sm font-medium text-ui-text ml-1">
-              Senha Mestre
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="w-full bg-background border border-border/70 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-ui-text"
-              autoFocus
-            />
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <label htmlFor="username" className="block text-sm font-medium text-ui-text ml-1">
+                Usuário
+              </label>
+              <input
+                id="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Seu usuário"
+                className="w-full bg-background border border-border/70 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-ui-text"
+                autoFocus
+              />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="password" className="block text-sm font-medium text-ui-text ml-1">
+                Senha
+              </label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full bg-background border border-border/70 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all text-ui-text"
+              />
+            </div>
           </div>
 
           <button
             type="submit"
-            disabled={loading || !password}
+            disabled={loading || !username || !password}
             className="w-full bg-primary text-primary-foreground py-4 px-6 rounded-full font-medium tracking-wide flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             {loading ? (

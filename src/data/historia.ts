@@ -42,6 +42,7 @@ export const historiaData = {
         },
         {
           "tipo": "imagem",
+          "src": "/historia/mesa.png",
           "placeholder": "Ilustração da mesa",
           "dica": "Insira o arquivo correspondente no futuro",
           "altura": "h-80"
@@ -52,6 +53,7 @@ export const historiaData = {
         },
         {
           "tipo": "imagem",
+          "src": "/historia/doacoes.png",
           "placeholder": "Assim que era divulgada as doações",
           "dica": "Insira o arquivo correspondente no futuro",
           "altura": "h-[28rem]"

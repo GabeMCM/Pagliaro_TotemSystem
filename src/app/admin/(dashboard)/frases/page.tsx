@@ -124,7 +124,7 @@ export default function AdminFrasesPage() {
     <div className="p-6 md:p-10">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h1 className="text-3xl font-serif text-ui-text flex items-center gap-3">
+          <h1 className="text-3xl font-semibold text-ui-text flex items-center gap-3">
             <MessageSquareQuote className="w-8 h-8 text-primary" /> Frases Prontas
           </h1>
           <p className="text-taupe mt-2">Gerencie as opções de mensagens (Dedicatórias) que aparecem para escolha na Faixa de Coroa.</p>
@@ -212,7 +212,7 @@ export default function AdminFrasesPage() {
           <div className="bg-card border border-border/70 rounded-3xl w-full max-w-xl max-h-[90vh] flex flex-col shadow-xl animate-in zoom-in-95 duration-200">
             
             <div className="flex items-center justify-between p-6 border-b border-border/70 shrink-0">
-              <h2 className="text-xl font-serif text-ui-text">
+              <h2 className="text-xl font-semibold text-ui-text">
                 {editingFrase ? "Editar Frase" : "Nova Frase"}
               </h2>
               <button onClick={closeModal} className="p-2 text-taupe hover:bg-muted/50 rounded-full transition-colors">

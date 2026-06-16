@@ -120,3 +120,38 @@ model Doador {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model SplashMessage {
+  id        String   @id @default(uuid())
+  texto     String
+  ativo     Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum UserRole {
+  GESTOR
+  ATENDENTE
+}
+
+model User {
+  id        String   @id @default(uuid())
+  nome      String
+  email     String?  // Opcional se for usar só username para login
+  username  String   @unique
+  password  String   // Hash bcrypt
+  role      UserRole @default(ATENDENTE)
+  ativo     Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SystemLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  userName  String?
+  action    String
+  target    String
+  details   String?
+  createdAt DateTime @default(now())
+}

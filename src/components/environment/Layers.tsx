@@ -75,7 +75,7 @@ export const CelestialLayer = () => {
 
 export const MountainLayer = () => (
   <div className="absolute bottom-0 w-full h-[40%] pointer-events-none">
-    <svg viewBox="0 0 1000 300" className="w-full h-full" preserveAspectRatio="none">
+    <svg viewBox="0 0 1000 300" className="w-full h-full" preserveAspectRatio="none" style={{ filter: 'var(--rim-light)' }}>
       <path d="M 0 300 L 0 200 Q 150 100 350 220 T 700 150 T 1000 250 L 1000 300 Z" fill="var(--mountain-1, var(--color-taupe))" />
       <path d="M 0 300 L 0 250 Q 200 150 450 270 T 850 180 T 1000 280 L 1000 300 Z" fill="var(--mountain-2, var(--color-secondary))" />
     </svg>
@@ -212,6 +212,17 @@ export const TreeLayer = () => (
     style={{ transform: 'rotate(calc(var(--wind-low) * 1.5deg))' }}
   >
     <svg viewBox="0 0 400 600" className="w-full h-full overflow-visible" preserveAspectRatio="xMidYMax meet">
+      <defs>
+        <linearGradient id="rim-fade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="40%" stopColor="white" stopOpacity="1" />
+          <stop offset="80%" stopColor="white" stopOpacity="0" />
+        </linearGradient>
+        <mask id="rim-mask">
+          <rect x="-100" y="-100" width="600" height="800" fill="url(#rim-fade)" />
+        </mask>
+      </defs>
+
+      <g id="tree-content">
 
       {/* Galho 1 (Baixo Esquerda) */}
       <g id="branch-1" style={{ transformOrigin: '185px 400px', transformBox: 'view-box', transform: 'rotate(calc(var(--wind-mid) * 1.2deg))' }}>
@@ -257,6 +268,10 @@ export const TreeLayer = () => (
         {/* Círculo Médio - Recebeu o 8 que sobrou (some bem antes) */}
         <circle id="canopy-circle-8" cx="200" cy="200" r="65" fill="var(--tree-accent, var(--color-accent))" style={{ opacity: 'calc(var(--canopy-8) * 0.8)', transition: 'opacity 2s ease' }} />
       </g>
+      </g>
+
+      {/* Camada duplicada com a luz do luar, mascarada para desaparecer na base */}
+      <use href="#tree-content" style={{ filter: 'var(--rim-light)' }} mask="url(#rim-mask)" />
 
     </svg>
   </div>
@@ -285,7 +300,7 @@ export const FallingLeavesLayer = () => {
 
 export const GroundLayer = () => (
   <div className="absolute bottom-0 left-[2%] w-[45%] h-[20%] pointer-events-none">
-    <svg viewBox="0 0 400 100" className="w-full h-full absolute bottom-0" preserveAspectRatio="xMidYMax meet">
+    <svg viewBox="0 0 400 100" className="w-full h-full absolute bottom-0" preserveAspectRatio="xMidYMax meet" style={{ filter: 'var(--rim-light)' }}>
       
       {/* Montinho 1 (Aparece primeiro: Pequeno, à direita extrema) */}
       <g style={{ opacity: 'var(--mound-1)', transition: 'opacity 1s linear' }}>

@@ -4,9 +4,18 @@ import { useState, useEffect } from "react";
 import { FileSpreadsheet, Loader2, Printer, UserX, Trash2 } from "lucide-react";
 import { formatCurrency } from "../../../../lib/utils";
 import { ConfirmModal } from "../../../../components/ConfirmModal";
+import { STRINGS } from "../../../../data/strings";
+import toast from "react-hot-toast";
+import { Order, CatalogItem, Institution, Obito } from "@prisma/client";
+
+type PedidoComRelacoes = Order & {
+  catalogItem: CatalogItem | null;
+  institution: Institution | null;
+  obito: Obito | null;
+};
 
 export default function AdminRelatoriosPage() {
-  const [pedidos, setPedidos] = useState<any[]>([]);
+  const [pedidos, setPedidos] = useState<PedidoComRelacoes[]>([]);
   const [loading, setLoading] = useState(true);
   const [hasPrinted, setHasPrinted] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -47,13 +56,13 @@ export default function AdminRelatoriosPage() {
         setShowConfirmModal(false);
         setHasPrinted(false);
         await fetchPedidos();
-        alert("Todos os registros finalizados foram apagados com sucesso!");
+        toast.success(STRINGS.admin.feedback.limpezaConcluida);
       } else {
-        alert("Falha ao apagar registros.");
+        toast.error(STRINGS.admin.feedback.limpezaErro);
       }
     } catch (e) {
       console.error(e);
-      alert("Erro ao conectar com servidor.");
+      toast.error(STRINGS.admin.feedback.erroConexao);
     } finally {
       setIsCleaning(false);
     }
@@ -64,7 +73,7 @@ export default function AdminRelatoriosPage() {
       {/* Esconder no momento da impressão */}
       <div className="print:hidden flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h1 className="text-3xl font-serif text-ui-text flex items-center gap-3">
+          <h1 className="text-3xl font-semibold text-ui-text flex items-center gap-3">
             <FileSpreadsheet className="w-8 h-8 text-primary" /> Relatórios / Prestação de Contas
           </h1>
           <p className="text-taupe mt-2">Visão tabular de todas as vendas e doações para repasse às Instituições.</p>

@@ -39,6 +39,14 @@ export default function HistoriaPage() {
                   }
                   
                   if (item.tipo === 'imagem') {
+                    if (item.src) {
+                      return (
+                        <div key={index} className={`w-full ${item.altura || 'h-80'} my-8 relative rounded-2xl overflow-hidden flex items-center justify-center bg-card border border-border/50 shadow-soft`}>
+                          <img src={item.src} alt={item.placeholder} className="max-w-full max-h-full object-contain" />
+                        </div>
+                      )
+                    }
+
                     return (
                       <div key={index} className={`w-full ${item.altura || 'h-80'} bg-black/5 rounded-2xl border border-white/30 flex items-center justify-center my-8 shadow-inner relative overflow-hidden group`}>
                         <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors duration-500"></div>

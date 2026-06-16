@@ -7,19 +7,40 @@ import { STRINGS } from '../../data/strings';
 
 export const SplashOverlay = () => {
   const [msgIndex, setMsgIndex] = useState(0);
+  const [messages, setMessages] = useState<string[]>(STRINGS.splash.messages);
 
   useEffect(() => {
+    // Busca as mensagens cadastradas no admin (que estão ativas)
+    const fetchMessages = async () => {
+      try {
+        const res = await fetch('/api/splash-messages');
+        if (res.ok) {
+          const data = await res.json();
+          const activeMessages = data.filter((m: any) => m.ativo).map((m: any) => m.texto);
+          if (activeMessages.length > 0) {
+            setMessages(activeMessages);
+          }
+        }
+      } catch (error) {
+        console.error("Falha ao buscar mensagens da tela inicial, usando fallback.", error);
+      }
+    };
+    fetchMessages();
+  }, []);
+
+  useEffect(() => {
+    if (messages.length === 0) return;
     const interval = setInterval(() => {
-      setMsgIndex((prev) => (prev + 1) % STRINGS.splash.messages.length);
+      setMsgIndex((prev) => (prev + 1) % messages.length);
     }, CONFIG.totem.splashRotationMs);
     return () => clearInterval(interval);
-  }, []);
+  }, [messages]);
 
   return (
     <>
       <div className="absolute inset-0 flex items-center justify-center z-40 pointer-events-none">
-        <div className="relative w-full max-w-5xl px-10">
-          {STRINGS.splash.messages.map((msg, idx) => (
+        <div className="relative w-full max-w-5xl px-10 h-[300px]">
+          {messages.map((msg, idx) => (
             <h2 
               key={idx}
               className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-4 text-center font-serif text-3xl md:text-5xl transition-all duration-[3000ms] ease-in-out ${
@@ -59,4 +80,3 @@ export const SplashOverlay = () => {
     </>
   );
 };
-

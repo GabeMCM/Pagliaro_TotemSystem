@@ -223,7 +223,9 @@ function tick(time: number) {
   root.style.setProperty('--night-opacity', nightOpacity.toFixed(3));
 
   // Calcula a intensidade da lua (0 = escondida, 1 = topo do céu)
-  const moonAltitude = moonProgress >= 0 ? Math.sin(moonProgress * Math.PI) : 0;
+  // Usamos uma potência de 0.4 para que a luz do luar ilumine mais rápido após o pôr do sol
+  // e mantenha a noite mais clara e visível.
+  const moonAltitude = moonProgress >= 0 ? Math.pow(Math.sin(moonProgress * Math.PI), 0.4) : 0;
   
   // Calcula a cor da noite atual mesclando a escuridão total com a luz da lua (Retorna arrays numéricos)
   const currentNightTrunk = lerpColorArray(NIGHT.trunk, MOONLIGHT.trunk, moonAltitude);
@@ -269,6 +271,10 @@ function tick(time: number) {
 
   root.style.setProperty('--ground-darkness', Math.min(1, nightOpacity + 0.3).toFixed(3));
   document.documentElement.style.setProperty('--wind-x', (baseWind * 15 - 5).toFixed(2) + 'px');
+  
+  // Luz de contorno da lua (Rim Light) para os objetos
+  const rimLightIntensity = (moonAltitude * 0.2).toFixed(3);
+  root.style.setProperty('--rim-light', `drop-shadow(0px -6px 15px rgba(220, 235, 255, ${rimLightIntensity}))`);
   
   // --- Canopy Lifecycle (12 Círculos, 2 Horas por Círculo) ---
   const activeCircle = Math.floor(now.getHours() / 2) + 1; // De 1 a 12

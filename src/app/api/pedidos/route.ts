@@ -32,6 +32,10 @@ export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
 
+    if (!data.catalogItemId || !data.institutionId || data.valorPago === undefined || data.valorPago === null) {
+      return NextResponse.json({ error: "Campos obrigatórios ausentes" }, { status: 400 });
+    }
+
     const novoPedido = await prisma.order.create({
       data: {
         catalogItemId: data.catalogItemId,
