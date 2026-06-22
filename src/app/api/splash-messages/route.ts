@@ -39,7 +39,7 @@ export async function POST(request: Request) {
       },
     });
 
-    await logAction(payload.id, payload.nome, 'CRIOU', 'SplashMessage', `Criou mensagem: ${texto.substring(0, 30)}...`);
+    await logAction(String(payload.id), String(payload.nome), 'CRIOU', 'SplashMessage', `Criou mensagem: ${texto.substring(0, 30)}...`);
 
     return NextResponse.json(message, { status: 201 });
   } catch (error) {

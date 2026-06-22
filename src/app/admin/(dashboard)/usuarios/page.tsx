@@ -33,7 +33,7 @@ export default function UsuariosPage() {
     const url = formData.id ? `/api/admin/usuarios/${formData.id}` : "/api/admin/usuarios";
     const method = formData.id ? "PATCH" : "POST";
     const body = { ...formData };
-    if (!body.password) delete body.password; // não atualiza senha se vazio
+    if (!body.password) delete (body as any).password; // não atualiza senha se vazio
 
     try {
       const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });

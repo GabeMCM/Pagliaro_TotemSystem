@@ -36,4 +36,16 @@ export const CONFIG = {
     /** Segundo dentro do minuto de sweep em que a tempestade começa */
     sweepSegundoInicio: 50,
   },
+  canvas: {
+    /** Quantidade de lâminas de grama desenhadas no canvas */
+    grassBlades: 600,
+    /** Quantidade de estrelas no céu noturno */
+    starCount: 60,
+    /** Quantidade de nuvens com efeito de paralaxe */
+    cloudCount: 25,
+    /** Número de partículas do pool de folhas caindo */
+    leafParticles: 40,
+    /** FPS alvo da renderização (60 para fluidez máxima) */
+    targetFps: 60,
+  },
 } as const;

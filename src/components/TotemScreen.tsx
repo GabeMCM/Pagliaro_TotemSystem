@@ -15,11 +15,11 @@ export const TotemScreen = ({ children, back, showHome = true }: TotemScreenProp
       
       {/* O "Modal" de Vidro que contém o site */}
       <div 
-        className="relative w-full flex-1 backdrop-blur-xl border border-white/40 shadow-[0_30px_100px_rgba(0,0,0,0.3)] rounded-none md:rounded-[3rem] flex flex-col font-sans text-taupe overflow-hidden pointer-events-auto transition-colors duration-1000"
+        className="relative w-full flex-1 border border-white/20 shadow-[0_10px_30px_rgba(0,0,0,0.15)] rounded-none md:rounded-[3rem] flex flex-col font-sans text-taupe overflow-hidden pointer-events-auto transition-colors duration-1000"
         style={{ backgroundColor: 'var(--ui-glass)' }}
       >
         {/* Marca d'agua botânica dentro do modal para manter a elegância */}
-        <div className="absolute inset-0 opacity-40 pointer-events-none mix-blend-multiply">
+        <div className="absolute inset-0 opacity-10 pointer-events-none">
           <Botanical />
         </div>
         

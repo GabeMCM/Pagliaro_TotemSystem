@@ -22,7 +22,7 @@ export const ENV_COLORS = {
   },
   dayRgba: {
     shadow: [74, 67, 64, 0.7],
-    glass:  [255, 255, 255, 0.5],
+    glass:  [255, 255, 255, 1.0],
     card:   [253, 252, 251, 0.8],
     border: [181, 168, 161, 0.3],
   },
@@ -38,7 +38,7 @@ export const ENV_COLORS = {
   },
   nightRgba: {
     shadow: [0, 0, 0, 0.9],
-    glass:  [12, 18, 22, 0.8],
+    glass:  [12, 18, 22, 1.0],
     card:   [15, 20, 25, 0.6],
     border: [255, 255, 255, 0.05],
   },
@@ -54,7 +54,7 @@ export const ENV_COLORS = {
   },
   moonlightRgba: {
     shadow: [5, 10, 20, 0.9],
-    glass:  [16, 24, 30, 0.8],
+    glass:  [16, 24, 30, 1.0],
     card:   [20, 25, 30, 0.6],
     border: [255, 255, 255, 0.1],
   },

@@ -25,7 +25,7 @@ export async function PUT(
       },
     });
 
-    await logAction(payload.id, payload.nome, 'ATUALIZOU', 'SplashMessage', `Atualizou mensagem: ${message.texto.substring(0, 30)}...`);
+    await logAction(String(payload.id), String(payload.nome), 'ATUALIZOU', 'SplashMessage', `Atualizou mensagem: ${message.texto.substring(0, 30)}...`);
 
     return NextResponse.json(message);
   } catch (error) {
@@ -48,7 +48,7 @@ export async function DELETE(
     
     const message = await prisma.splashMessage.findUnique({ where: { id } });
     if (message) {
-      await logAction(payload.id, payload.nome, 'EXCLUIU', 'SplashMessage', `Excluiu mensagem: ${message.texto.substring(0, 30)}...`);
+      await logAction(String(payload.id), String(payload.nome), 'EXCLUIU', 'SplashMessage', `Excluiu mensagem: ${message.texto.substring(0, 30)}...`);
     }
 
     await prisma.splashMessage.delete({

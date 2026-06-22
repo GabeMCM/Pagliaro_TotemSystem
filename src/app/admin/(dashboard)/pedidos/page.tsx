@@ -38,7 +38,7 @@ export default function AdminPedidosPage() {
   const handleUpdateStatus = async (id: string, novoStatus: string) => {
     try {
       // Otimisticamente atualiza a UI
-      setPedidos(prev => prev.map(p => p.id === id ? { ...p, status: novoStatus } : p));
+      setPedidos(prev => prev.map(p => p.id === id ? { ...p, status: novoStatus as any } : p));
       
       const res = await fetch(`/api/pedidos/${id}`, {
         method: "PATCH",

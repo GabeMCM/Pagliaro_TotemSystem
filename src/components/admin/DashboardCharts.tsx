@@ -53,7 +53,7 @@ export function DashboardCharts({
                 <XAxis dataKey="mes" stroke="#64748b" fontSize={12} />
                 <YAxis stroke="#64748b" fontSize={12} tickFormatter={(value) => `R$${value}`} />
                 <Tooltip 
-                  formatter={(value: number) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value)}
+                  formatter={(value: any) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value)}
                   contentStyle={{ borderRadius: '12px', border: '1px solid #e2e8f0' }}
                 />
                 <Line type="monotone" dataKey="total" stroke="#3b82f6" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} name="Total (R$)" />
@@ -72,7 +72,7 @@ export function DashboardCharts({
                 <XAxis dataKey="nome" stroke="#64748b" fontSize={12} />
                 <YAxis stroke="#64748b" fontSize={12} tickFormatter={(value) => `R$${value}`} />
                 <Tooltip 
-                  formatter={(value: number) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value)}
+                  formatter={(value: any) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value)}
                   contentStyle={{ borderRadius: '12px', border: '1px solid #e2e8f0' }}
                 />
                 <Bar dataKey="total" fill="#3b82f6" radius={[4, 4, 0, 0]} name="Total (R$)" />

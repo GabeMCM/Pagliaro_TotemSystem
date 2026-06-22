@@ -7,7 +7,7 @@ import { STRINGS } from '../../data/strings';
 
 export const SplashOverlay = () => {
   const [msgIndex, setMsgIndex] = useState(0);
-  const [messages, setMessages] = useState<string[]>(STRINGS.splash.messages);
+  const [messages, setMessages] = useState<string[]>([...STRINGS.splash.messages]);
 
   useEffect(() => {
     // Busca as mensagens cadastradas no admin (que estão ativas)
