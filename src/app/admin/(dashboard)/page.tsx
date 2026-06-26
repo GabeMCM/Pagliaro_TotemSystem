@@ -42,8 +42,9 @@ export default async function AdminDashboardPage() {
   const instituicaoData = Array.from(instMap.entries()).map(([nome, total]) => ({ nome, total }));
 
   // Estatísticas Avançadas
-  const totalDoadores = new Set(allOrders.filter(o => o.telefoneCliente).map(o => o.telefoneCliente)).size || 1; 
-  const mediaPorDoador = totalArrecadado / (totalDoadores > 0 ? totalDoadores : 1);
+  const doadoresUnicos = new Set(allOrders.filter(o => o.telefoneCliente).map(o => o.telefoneCliente)).size;
+  const totalDoadores = doadoresUnicos > 0 ? doadoresUnicos : 1; 
+  const mediaPorDoador = totalArrecadado / totalDoadores;
   const mediaMensal = mensalData.length > 0 ? (totalArrecadado / mensalData.length) : totalArrecadado;
 
   return (

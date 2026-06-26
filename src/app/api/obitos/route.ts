@@ -11,6 +11,7 @@ export async function GET(req: NextRequest) {
     const obitos = await prisma.obito.findMany({
       where: payload ? undefined : { ativo: true },
       orderBy: { createdAt: "desc" },
+      take: 100, // Previne sobrecarga se houver muitos registros históricos
     });
     return NextResponse.json(obitos);
   } catch (error) {

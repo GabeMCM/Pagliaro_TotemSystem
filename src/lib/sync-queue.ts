@@ -11,6 +11,7 @@ export interface OfflineOrder {
   id: string; // id local para controle
   timestamp: number;
   payload: any;
+  attempts?: number;
 }
 
 /**
@@ -68,12 +69,22 @@ export async function syncOfflineOrders() {
         if (res.ok) {
           console.log(`[OfflineQueue] Pedido ${order.id} sincronizado com sucesso.`);
         } else {
-          console.warn(`[OfflineQueue] Falha ao sincronizar ${order.id}. Mantendo na fila.`);
-          remainingQueue.push(order);
+          console.warn(`[OfflineQueue] Falha ao sincronizar ${order.id}. HTTP ${res.status}`);
+          const attempts = (order.attempts || 0) + 1;
+          if (attempts < 5) {
+            remainingQueue.push({ ...order, attempts });
+          } else {
+            console.error(`[OfflineQueue] Pedido ${order.id} descartado após 5 tentativas.`);
+          }
         }
       } catch (err) {
         console.error(`[OfflineQueue] Erro de rede ao sincronizar ${order.id}. Mantendo na fila.`);
-        remainingQueue.push(order);
+        const attempts = (order.attempts || 0) + 1;
+        if (attempts < 5) {
+          remainingQueue.push({ ...order, attempts });
+        } else {
+          console.error(`[OfflineQueue] Pedido ${order.id} descartado após 5 falhas de rede.`);
+        }
       }
     }
     

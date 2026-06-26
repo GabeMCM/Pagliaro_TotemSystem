@@ -63,6 +63,7 @@ model CatalogModel {
 model Obito {
   id               String   @id @default(uuid())
   nome             String
+  dataNascimento   DateTime?
   dataFalecimento  DateTime?
   localVelorio     String?
   ativo            Boolean  @default(true)

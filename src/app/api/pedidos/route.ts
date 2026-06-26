@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
         anonimo: data.anonimo || false,
         modeloNome: data.modeloNome || null,
         valorPago: data.valorPago,
-        status: data.status || "PENDENTE",
+        status: "PENDENTE", // Forçado para evitar injeção
         frase: data.frase || null,
         fotos: data.fotos || [],
         legendaFotos: data.legendaFotos || [],

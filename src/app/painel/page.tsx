@@ -29,6 +29,14 @@ export default function PainelPage() {
     return null
   }
 
+  // Cleanup de object URLs para evitar memory leak
+  useEffect(() => {
+    return () => {
+      fotos.forEach(foto => {
+        URL.revokeObjectURL(foto.src)
+      })
+    }
+  }, [fotos])
 
   const restantes = calcFotosRestantes(LIMITE_FOTOS, fotosExistentes, fotos.length)
 
@@ -48,6 +56,8 @@ export default function PainelPage() {
   }
 
   const removeFoto = (id: string) => {
+    const foto = fotos.find(f => f.id === id)
+    if (foto) URL.revokeObjectURL(foto.src)
     setFotos(prev => prev.filter(f => f.id !== id))
   }
 

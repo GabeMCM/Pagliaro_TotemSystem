@@ -5,6 +5,9 @@ import prisma from '../../../../lib/prisma';
 import bcrypt from 'bcryptjs';
 
 export async function POST(req: NextRequest) {
+  // Rate limiting simples: atraso artificial de 1 segundo para dificultar brute force
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
   try {
     const { username, password } = await req.json();
 

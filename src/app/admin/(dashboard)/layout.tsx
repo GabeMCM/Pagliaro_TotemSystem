@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LogOut, Home, MessageSquareQuote, FileSpreadsheet, LayoutDashboard, Menu, X, Cross, BookOpen, Layers, UserCircle, ChevronDown, ChevronUp, Bell, HeartHandshake, Flower2, ScrollText, Users, Settings, Heart } from "lucide-react";
+import { LogOut, Home, MessageSquareQuote, FileSpreadsheet, LayoutDashboard, Menu, X, Cross, BookOpen, Layers, UserCircle, ChevronDown, ChevronUp, Bell, HeartHandshake, Flower2, ScrollText, Users, Settings, Heart, UserMinus } from "lucide-react";
 import { adminThemeStyles } from "../../../data/admin-theme";
 import { Toaster } from 'react-hot-toast';
 
@@ -78,8 +78,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       label: "Pessoas",
       icon: Users,
       items: [
-        { name: "Óbitos", href: "/admin/obitos", icon: Users },
-        { name: "Doadores", href: "/admin/doadores", icon: Users },
+        { name: "Óbitos", href: "/admin/obitos", icon: UserMinus },
+        { name: "Doadores", href: "/admin/doadores", icon: Heart },
         ...(role === "GESTOR" ? [{ name: "Usuários", href: "/admin/usuarios", icon: Users }] : []),
       ]
     },

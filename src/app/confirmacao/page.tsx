@@ -23,8 +23,9 @@ export default function ConfirmacaoPage() {
     
     // Auto reset configurável
     const timer = setTimeout(() => {
-      reset()
       navigate.push('/')
+      // Pequeno atraso no reset para dar tempo da tela desmontar/navegar sem acionar o FlowGuard
+      setTimeout(() => reset(), 100)
     }, CONFIG.totem.autoResetMs + CONFIG.totem.qrCodeExtraMs) // Dá tempo extra pro escaneamento do QR Code
 
     return () => clearTimeout(timer)

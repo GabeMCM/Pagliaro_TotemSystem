@@ -1,7 +1,7 @@
 "use client";
 
 
-import { Flower2, HelpCircle, HeartHandshake, BookOpen } from 'lucide-react'
+import { Flower2, HeartHandshake, BookOpen } from 'lucide-react'
 import { TotemScreen } from '../../components/TotemScreen'
 import { InteractiveCard } from '../../components/InteractiveCard'
 import { STRINGS } from '../../data/strings'

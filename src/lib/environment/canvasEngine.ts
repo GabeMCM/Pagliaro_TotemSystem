@@ -7,6 +7,7 @@ let ctx: CanvasRenderingContext2D | null = null;
 let canvasWidth = 0;
 let canvasHeight = 0;
 let lastFrameTime = 0;
+let resizeHandler: (() => void) | null = null;
 
 // Setup objects that only need to be computed once
 const STATIC_STARS = Array.from({ length: CONFIG.canvas.starCount }).map((_, i) => ({
@@ -95,14 +96,14 @@ export function startCanvas(canvas: HTMLCanvasElement) {
   ctx = canvas.getContext('2d', { alpha: false }); // Opaque optimization
   if (!ctx) return;
 
-  const resize = () => {
+  resizeHandler = () => {
     canvasWidth = window.innerWidth;
     canvasHeight = window.innerHeight;
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
   };
-  window.addEventListener('resize', resize);
-  resize();
+  window.addEventListener('resize', resizeHandler);
+  resizeHandler();
 
   lastFrameTime = performance.now();
 }
@@ -110,6 +111,10 @@ export function startCanvas(canvas: HTMLCanvasElement) {
 export function stopCanvas() {
   isRunning = false;
   ctx = null;
+  if (resizeHandler) {
+    window.removeEventListener('resize', resizeHandler);
+    resizeHandler = null;
+  }
 }
 
 function hexToRgb(hex: string): [number, number, number] {

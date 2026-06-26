@@ -50,8 +50,12 @@ export default function FaixaPage() {
 
   if (!homenagem) return null;
 
+  const backUrl = homenagem.modelos && homenagem.modelos.length > 0 
+    ? `/colecao/${homenagem.id}` 
+    : '/catalogo';
+
   return (
-    <TotemScreen back={`/colecao/${homenagem.id}`}>
+    <TotemScreen back={backUrl}>
       <div className="max-w-4xl mx-auto w-full flex flex-col flex-1 animate-in fade-in slide-in-from-bottom-10 duration-700">
         <StepBar currentStep={1} />
         
@@ -98,7 +102,7 @@ export default function FaixaPage() {
                     onClick={() => setFrase(f.texto)}
                     className="text-left p-4 bg-muted/30 border border-border/50 hover:border-primary hover:bg-primary/5 rounded-xl text-ui-text transition-colors"
                   >
-                    "{f.texto}"
+                    &quot;{f.texto}&quot;
                   </button>
                 ))}
                 {frasesProntas.length === 0 && (
