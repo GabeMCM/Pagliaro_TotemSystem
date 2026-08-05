@@ -21,12 +21,14 @@ interface HomenagemState {
   fotosExistentes: number;
   frase: string;
   ong: Ong | null;
+  valorPersonalizado: number | null;
   
   setHomenagem: (homenagem: Homenagem | null) => void;
   setModelo: (modelo: ModeloHomenagem | null) => void;
   setFotos: (fotos: FotoMemorial[] | ((prev: FotoMemorial[]) => FotoMemorial[])) => void;
   setFrase: (frase: string) => void;
   setOng: (ong: Ong | null) => void;
+  setValorPersonalizado: (valor: number | null) => void;
   
   // Novos campos de Identificação
   obitoId: string;
@@ -50,6 +52,7 @@ export const HomenagemProvider = ({ children }: { children: ReactNode }) => {
   const [fotos, setFotos] = useState<FotoMemorial[]>([]);
   const [frase, setFrase] = useState<string>("");
   const [ong, setOng] = useState<Ong | null>(null);
+  const [valorPersonalizado, setValorPersonalizado] = useState<number | null>(null);
 
   const [obitoId, setObitoId] = useState<string>("");
   const [nomeCliente, setNomeCliente] = useState<string>("");
@@ -62,6 +65,7 @@ export const HomenagemProvider = ({ children }: { children: ReactNode }) => {
     setFotos([]);
     setFrase("");
     setOng(null);
+    setValorPersonalizado(null);
     setObitoId("");
     setNomeCliente("");
     setTelefoneCliente("");
@@ -75,6 +79,7 @@ export const HomenagemProvider = ({ children }: { children: ReactNode }) => {
     fotosExistentes: FOTOS_EXISTENTES,
     frase,
     ong,
+    valorPersonalizado,
     obitoId,
     nomeCliente,
     telefoneCliente,
@@ -84,6 +89,7 @@ export const HomenagemProvider = ({ children }: { children: ReactNode }) => {
     setFotos,
     setFrase,
     setOng,
+    setValorPersonalizado,
     setObitoId,
     setNomeCliente,
     setTelefoneCliente,

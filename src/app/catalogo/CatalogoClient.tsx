@@ -25,7 +25,9 @@ export default function CatalogoClient({ homenagens }: { homenagens: Homenagem[]
       navigate.push(`/colecao/${h.id}`)
     } else {
       setHomenagem(h)
-      if (h.requerFotos) {
+      if (h.faixa?.toLowerCase() === 'livre') {
+        navigate.push('/valor-livre')
+      } else if (h.requerFotos) {
         navigate.push('/painel')
       } else {
         navigate.push('/instituicoes-escolha')

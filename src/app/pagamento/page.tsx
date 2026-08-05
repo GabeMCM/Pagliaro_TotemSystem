@@ -17,13 +17,13 @@ import { enqueueOrder } from '../../lib/sync-queue'
 
 export default function PagamentoPage() {
   const navigate = useRouter()
-  const { homenagem, ong, obitoId, nomeCliente, telefoneCliente, anonimo, modelo, frase, fotos } = useHomenagem()
+  const { homenagem, ong, obitoId, nomeCliente, telefoneCliente, anonimo, modelo, frase, fotos, valorPersonalizado } = useHomenagem()
 
   const pixPayload = useMemo(() => {
     if (!ong || !ong.chavePix || !homenagem) return "";
     
-    // Valor Cobrado (se o modelo tiver preço individual, usa ele, senão usa o preço geral da coroa)
-    const valorCobrado = modelo?.valor ?? homenagem.valor;
+    // Valor Cobrado (se houver valorPersonalizado usa ele, senão modelo, senão base)
+    const valorCobrado = valorPersonalizado ?? modelo?.valor ?? homenagem.valor;
     
     return generatePixPayload(
       ong.chavePix,
@@ -31,7 +31,7 @@ export default function PagamentoPage() {
       ong.pixCidade || "CIDADE",
       valorCobrado
     );
-  }, [ong, homenagem, modelo]);
+  }, [ong, homenagem, modelo, valorPersonalizado]);
 
   if (!homenagem || !ong) {
     return null
@@ -76,7 +76,7 @@ export default function PagamentoPage() {
               </div>
 
               <p className="text-taupe uppercase tracking-widest text-xs mb-1">{STRINGS.pagamento.metodo}</p>
-              <p className="font-serif text-3xl md:text-4xl text-primary mb-4">{formatCurrency(modelo?.valor ?? homenagem.valor)}</p>
+              <p className="font-serif text-3xl md:text-4xl text-primary mb-4">{formatCurrency(valorPersonalizado ?? modelo?.valor ?? homenagem.valor)}</p>
 
               {ong.chavePix && (
                 <div className="bg-muted/40 px-4 py-2 rounded-xl border border-border/50 text-center max-w-[250px]">
@@ -125,7 +125,7 @@ export default function PagamentoPage() {
                       telefoneCliente: telefoneCliente || null,
                       anonimo: anonimo,
                       modeloNome: modelo?.nome || null,
-                      valorPago: modelo?.valor ?? homenagem.valor,
+                      valorPago: valorPersonalizado ?? modelo?.valor ?? homenagem.valor,
                       status: 'PENDENTE',
                       frase: frase || null,
                       fotos: fotos.map(f => f.src),
