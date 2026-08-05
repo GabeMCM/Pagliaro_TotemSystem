@@ -13,20 +13,56 @@ function crc16ccitt(payload: string) {
   return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
 }
 
+export function injectAmountInPix(emvco: string, amount: number): string {
+  let cleanEmvco = emvco.trim();
+  const crcIndex = cleanEmvco.lastIndexOf("6304");
+  if (crcIndex === -1 || !cleanEmvco.startsWith("000201")) {
+    return cleanEmvco;
+  }
+  
+  let payloadWithoutCrc = cleanEmvco.substring(0, crcIndex);
+  
+  let parsed: Record<string, string> = {};
+  let i = 0;
+  while (i < payloadWithoutCrc.length) {
+    const id = payloadWithoutCrc.substring(i, i + 2);
+    const len = parseInt(payloadWithoutCrc.substring(i + 2, i + 4), 10);
+    const val = payloadWithoutCrc.substring(i + 4, i + 4 + len);
+    parsed[id] = val;
+    i += 4 + len;
+  }
+  
+  parsed["54"] = amount.toFixed(2);
+  
+  let newPayload = "";
+  const formatLength = (val: string) => val.length.toString().padStart(2, '0');
+  
+  const keys = Object.keys(parsed).sort((a, b) => parseInt(a) - parseInt(b));
+  for (const k of keys) {
+    newPayload += `${k}${formatLength(parsed[k])}${parsed[k]}`;
+  }
+  
+  newPayload += "6304";
+  const crc = crc16ccitt(newPayload);
+  return `${newPayload}${crc}`;
+}
+
 export function generatePixPayload(
   pixKey: string,
   merchantName: string,
   merchantCity: string,
   amount: number
 ): string {
+  const cleanKey = pixKey.trim();
+
+  if (cleanKey.startsWith("000201") && cleanKey.includes("6304")) {
+    return injectAmountInPix(cleanKey, amount);
+  }
+
   const formatLength = (val: string) => val.length.toString().padStart(2, '0');
 
   const payloadFormat = "000201";
   
-  // Limpar a chave pix de caracteres extras se for telefone ou CNPJ, mas mantendo e-mail
-  // Na verdade, o BCB exige formato exato, por segurança é melhor quem digita colocar a chave correta.
-  const cleanKey = pixKey.trim();
-
   const merchantAccountInfo = `0014BR.GOV.BCB.PIX01${formatLength(cleanKey)}${cleanKey}`;
   const merchantAccount = `26${formatLength(merchantAccountInfo)}${merchantAccountInfo}`;
   const merchantCategoryCode = "52040000";
@@ -37,7 +73,6 @@ export function generatePixPayload(
   
   const countryCode = "5802BR";
   
-  // Nomes e Cidades não podem ter acentos ou caracteres especiais e tamanho maximo 25 e 15
   const removeAccents = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   
   const cleanName = removeAccents(merchantName).substring(0, 25).replace(/[^a-zA-Z0-9\s]/gi, '').trim().toUpperCase() || "NOME";

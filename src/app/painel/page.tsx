@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { useRouter } from "next/navigation";
 import { X, Plus } from 'lucide-react'
 import { TotemScreen } from '../../components/TotemScreen'
