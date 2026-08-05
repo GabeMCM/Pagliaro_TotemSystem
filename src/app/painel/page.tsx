@@ -24,11 +24,6 @@ export default function PainelPage() {
   const { homenagem, fotos, fotosExistentes, setFotos } = useHomenagem()
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  // Redireciona se não houver homenagem selecionada
-  if (!homenagem) {
-    return null
-  }
-
   // Cleanup de object URLs para evitar memory leak
   useEffect(() => {
     return () => {
@@ -37,6 +32,11 @@ export default function PainelPage() {
       })
     }
   }, [fotos])
+
+  // Redireciona se não houver homenagem selecionada
+  if (!homenagem) {
+    return null
+  }
 
   const restantes = calcFotosRestantes(LIMITE_FOTOS, fotosExistentes, fotos.length)
 

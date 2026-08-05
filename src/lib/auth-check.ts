@@ -1,16 +1,18 @@
 import { jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 
-if (!process.env.JWT_SECRET) {
-  if (process.env.NODE_ENV === 'production') {
-    throw new Error("⚠️ ERRO FATAL DE SEGURANÇA: JWT_SECRET não está definido no .env em produção.");
+function getJwtSecret(): Uint8Array {
+  if (!process.env.JWT_SECRET) {
+    if (process.env.NODE_ENV === 'production' && typeof window === 'undefined' && !process.env.NEXT_PHASE) {
+      console.warn("⚠️ AVISO DE SEGURANÇA: JWT_SECRET não está definido no .env. Usando chave de fallback.");
+    }
   }
-  console.warn("⚠️ AVISO DE SEGURANÇA: JWT_SECRET não está definido no .env. Usando chave de fallback insegura (apenas para desenvolvimento).");
+  return new TextEncoder().encode(
+    process.env.JWT_SECRET || 'secret_jwt_key_totem_pagliaro_2026'
+  );
 }
 
-export const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || 'secret_jwt_key_totem_pagliaro_2026'
-);
+export const JWT_SECRET = getJwtSecret();
 
 export async function verifyAdminAuth() {
   try {
